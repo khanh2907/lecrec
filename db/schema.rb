@@ -23,11 +23,6 @@ ActiveRecord::Schema.define(version: 20140815134239) do
     t.integer  "user_id"
   end
 
-  create_table "lecture_recordings_users", id: false, force: true do |t|
-    t.integer "lecture_recording_id"
-    t.integer "user_id"
-  end
-
   create_table "roles", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
