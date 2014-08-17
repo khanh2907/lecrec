@@ -71,6 +71,6 @@ class LectureRecordingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def lecture_recording_params
-      params.require(:lecture_recording).permit(:name)
+      params.require(:lecture_recording).permit(:name, :raw_video)
     end
 end

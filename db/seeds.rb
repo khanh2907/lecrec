@@ -9,6 +9,7 @@ Role.delete_all
 Role.create!(:name => "Administrator")
 Role.create!(:name => "Student")
 Role.create!(:name => "Tutor")
+Role.create!(:name => "Lecturer")
 puts 'CREATED ROLES'
 
 user = CreateAdminService.new.call

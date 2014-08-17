@@ -3,9 +3,11 @@
 
   <div class="form-inputs">
     <%= f.input :name %>
+    <%= f.file_field :raw_video%>
+    <span>(.avi, .wmv, .mkv, .mp4)</span>
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit %>
+    <%= f.button :submit, :Submit, :id => "submit_lecture_recording"%>
   </div>
 <% end %>
