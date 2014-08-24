@@ -31,6 +31,7 @@
 
 <script>
   updateDiscussions();
+
   $("#new-discussion-btn").click(function() {
     console.log('New Discussion AJAX SUUUTATOOO!');
 
@@ -47,6 +48,8 @@
       updateDiscussions();
   });
 
+  var timer = setInterval(function(){updateDiscussions()}, 30000);
+
   function updateDiscussions() {
       $.getJSON("<%= discussions_json_url(:id => @lecture_recording.id) %>", function(data) {
           data.forEach(function(discussion) {
@@ -54,15 +57,33 @@
               if (!$("[discussion-id="+discussion.id+"]").length) {
                   var html = "<div class='discussion' discussion-id='"
                           + discussion.id +"'><hr><h4>"
-                          +discussion.title+"</h4><h5>"
-                          +calculateSince(created_at)+"</h5><div>"
-                          +discussion.content+"</div>";
+                          +discussion.title+"</h4>" +
+                          "<h5>"+getUserNameById(discussion.user_id)+"</h5>"
+                          +
+                          "<h5 created-at-id='"+discussion.id+"'>"
+                          +calculateSince(created_at)+"</h5>" +
+                          "<div>"
+                          +encodeHTML(discussion.content).replace(/\n/g, '<br>')+"</div>";
                   $('.discussions-holder').prepend(html);
               }
               else {
-                  $("[discussion-id="+discussion.id+"] .discussion-created-at").html(calculateSince(created_at))
+                  $("[created-at-id="+discussion.id+"]").html(calculateSince(created_at))
               }
           })
       });
+  }
+
+  function getUserNameById(id) {
+      var name;
+
+      $.ajax({
+          url: '<%= users_url%>/'+id,
+          async: false,
+          dataType: 'json',
+          success: function (json) {
+              name = json.name;
+          }
+      });
+      return name;
   }
 </script>

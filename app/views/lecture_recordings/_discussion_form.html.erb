@@ -5,10 +5,14 @@
                :html => { :id => "lecrec-discussion-form" } do |f| %>
       <div class="modal-body">
       <%= f.fields_for :discussions do |d| %>
-          <%= d.label :title%>
-          <%= d.text_field :title%>
-          <%= d.label :content%>
-          <%= d.text_field :content%>
+          <p>
+            <%= d.label :title%>
+            <%= d.text_field :title%>
+          </p>
+          <p>
+            <%= d.label :content%>
+            <%= d.text_area :content%>
+          </p>
       <% end %>
     </div>
     <div class="modal-footer">
