@@ -33,3 +33,38 @@
 .video-bot-padding {
   height: 100px;
 }
+
+.discussion-content {
+//  margin-left: 20px;
+}
+
+.dis-icon {
+  margin-top: 5px;
+  margin-right: 5px;
+}
+
+.discussion-form{
+  padding-top: 10px;
+  max-width: 100%;
+  margin: 0 auto;
+}
+.discussion-form form {
+  @extend .well;
+  @extend .well-lg;
+  padding-bottom: 40px;
+}
+
+.discussion-form textarea {
+  height: 200px;
+}
+
+.modal-dialog{
+  position: absolute;
+  left: 50%;
+  //now you must set a margin left under zero - value is a half width your window
+  margin-left: -312px;
+  // this same situation is with height - example
+  height: 500px;
+  top: 50%;
+  margin-top: -250px;
+}

@@ -1,22 +1,26 @@
 
-<%= form_for @lecture_recording,
-               :url => discussion_post_path(:id => @lecture_recording.id, :user_id => current_user.id),
-               :method => "POST",
-               :html => { :id => "lecrec-discussion-form" } do |f| %>
-      <div class="modal-body">
-      <%= f.fields_for :discussions do |d| %>
-          <p>
-            <%= d.label :title%>
-            <%= d.text_field :title%>
-          </p>
-          <p>
-            <%= d.label :content%>
-            <%= d.text_area :content%>
-          </p>
-      <% end %>
-    </div>
-    <div class="modal-footer">
-        <%= f.submit "Submit", :class => 'btn btn-primary'%>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+<% unless current_user.nil? %>
+    <div class="discussion-form">
+        <%= form_for @lecture_recording,
+                       :url => discussion_post_path(:id => @lecture_recording.id, :user_id => current_user.id),
+                       :method => "POST",
+                       :html => { :id => "lecrec-discussion-form" } do |f| %>
+              <div class="modal-body">
+              <%= f.fields_for :discussions do |d| %>
+                  <p>
+                    <%= d.label :title%>
+                    <%= d.text_field :title, :autofocus => true, class: 'form-control'%>
+                  </p>
+                  <p>
+                    <%= d.label :content%>
+                    <%= d.text_area :content, class: 'form-control'%>
+                  </p>
+              <% end %>
+            </div>
+            <div class="modal-footer">
+                <%= f.submit "Submit", :class => 'btn btn-primary'%>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        <% end %>
     </div>
 <% end %>

@@ -1,89 +1,106 @@
 <div>
-  <video id="video" controls=""  width="100%"  name="media">
+  <video id="video" controls="" width="100%" name="media">
     <source src="<%=@lecture_recording.raw_video%>" type="video/webm">
   </video>
 </div>
 <div class="video-meta">
   <h2>
     <%= @lecture_recording.name %>
-    <btn id="new-discussion-btn" class="btn btn-primary btn-video">New Discussion</btn>
   </h2>
-  <h3>Discussions</h3>
+  <h3>
+    Discussions
+    <% unless current_user.nil? %>
+        <btn id="new-discussion-btn" class="btn btn-primary btn-video">New Discussion</btn>
+    <% end %>
+  </h3>
   <div class="discussions-holder">
 
-    </div>
   </div>
+</div>
 </div>
 <div class="video-bot-padding">
 </div>
 
-<div class="modal fade">
-<div class="modal-dialog">
-  <div class="modal-content">
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-      <h4 class="modal-title">New Discussion</h4>
+<% unless current_user.nil? %>
+    <div class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title">New Discussion</h4>
+          </div>
+          <%= render 'discussion_form'%>
+        </div>
+      </div>
     </div>
-    <%= render 'discussion_form'%>
-  </div><!-- /.modal-content -->
-</div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+<% end %>
 
 <script>
-  updateDiscussions();
+    updateDiscussions();
+    updateTimeSince()
 
-  $("#new-discussion-btn").click(function() {
-    console.log('New Discussion AJAX SUUUTATOOO!');
+    $("#new-discussion-btn").click(function() {
+        console.log('New Discussion AJAX SUUUTATOOO!');
 
-      $('.modal').modal({
-          backdrop: 'static'
-      });
+        $('.modal').modal()
 
-  })
 
-  $('#lecrec-discussion-form').ajaxForm(function() {
-      $('#lecture_recording_discussions_title').val("");
-      $('#lecture_recording_discussions_content').val("");
-      $('.modal').modal('hide');
-      updateDiscussions();
-  });
+    })
 
-  var timer = setInterval(function(){updateDiscussions()}, 30000);
+    $('#lecrec-discussion-form').ajaxForm(function() {
+        $('#lecture_recording_discussions_title').val("");
+        $('#lecture_recording_discussions_content').val("");
+        $('.modal').modal('hide');
+        updateDiscussions();
+        updateTimeSince();
+    });
 
-  function updateDiscussions() {
-      $.getJSON("<%= discussions_json_url(:id => @lecture_recording.id) %>", function(data) {
-          data.forEach(function(discussion) {
-              var created_at = new Date(discussion.created_at);
-              if (!$("[discussion-id="+discussion.id+"]").length) {
-                  var html = "<div class='discussion' discussion-id='"
-                          + discussion.id +"'><hr><h4>"
-                          +discussion.title+"</h4>" +
-                          "<h5>"+getUserNameById(discussion.user_id)+"</h5>"
-                          +
-                          "<h5 created-at-id='"+discussion.id+"'>"
-                          +calculateSince(created_at)+"</h5>" +
-                          "<div>"
-                          +encodeHTML(discussion.content).replace(/\n/g, '<br>')+"</div>";
-                  $('.discussions-holder').prepend(html);
-              }
-              else {
-                  $("[created-at-id="+discussion.id+"]").html(calculateSince(created_at))
-              }
-          })
-      });
-  }
+    var timer = setInterval(function(){updateTimeSince()}, 30000);
 
-  function getUserNameById(id) {
-      var name;
+    function updateDiscussions() {
+        $.ajax({
+            url: '<%= discussions_render_url(@lecture_recording.id)%>',
+            success: function(data) {
+                $('.discussions-holder').html(data);
 
-      $.ajax({
-          url: '<%= users_url%>/'+id,
-          async: false,
-          dataType: 'json',
-          success: function (json) {
-              name = json.name;
-          }
-      });
-      return name;
-  }
+                $('.delete-discussion').on('click', function(event) {
+                    event.preventDefault();
+                    var url = $(this).attr('href');
+                    var answer = confirm ("Are you sure you want to delete this discussion?");
+                    if (answer){
+                        $.ajax({
+                            url: url,
+                            type: "post",
+                            dataType: "json",
+                            data: {"_method":"delete"},
+                            success: function() {
+                                updateDiscussions();
+                                updateTimeSince();
+                            }
+                        });
+                    }
+                    else
+                        return false;
+                });
+
+            }
+        });
+    }
+
+    function updateTimeSince() {
+        $.getJSON("<%= discussions_json_url(:id => @lecture_recording.id) %>", function(data) {
+            data.forEach(function(discussion) {
+                var created_at = new Date(discussion.created_at);
+                if ($("[discussion-id="+discussion.id+"]").length) {
+                    $("[created-at-id="+discussion.id+"]").html(calculateSince(created_at))
+                }
+            })
+        });
+    }
+
+
+
+
+
+
 </script>

@@ -1,6 +1,6 @@
 class LectureRecordingsController < ApplicationController
-  load_and_authorize_resource except: [:create]
-  before_action :set_lecture_recording, only: [:show, :edit, :update, :destroy, :create_discussion, :get_discussions]
+  #load_and_authorize_resource except: [:create]
+  before_action :set_lecture_recording, only: [:show, :edit, :update, :destroy, :create_discussion, :get_discussions, :render_discussions]
 
   # GET /lecture_recordings
   # GET /lecture_recordings.json
@@ -81,6 +81,11 @@ class LectureRecordingsController < ApplicationController
 
   def get_discussions
     render json: @lecture_recording.discussions.order(created_at: :asc)
+  end
+
+  def render_discussions
+    @discussions = @lecture_recording.discussions.order(created_at: :desc)
+    render :layout => false
   end
 
   private

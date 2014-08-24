@@ -1,0 +1,20 @@
+<% @discussions.each do |discussion|%>
+    <div class="discussion" discussion-id="<%=discussion.id%>">
+      <hr>
+      <h4><%=discussion.title%></h4>
+      <h5 class="discussion-name"><%=User.find_by_id(discussion.user_id).name%></h5>
+      <h5 class="discussion-created-at" created-at-id="<%=discussion.id%>"></h5>
+      <div class="discussion-content"><%=h nl2br(encodeHTML(discussion.content)).html_safe%></div>
+      <div>
+        <a>
+          <i class="dis-icon glyphicon glyphicon-comment"></i>
+        </a>
+      <% if !current_user.nil? && current_user.id == discussion.user_id%>
+          <%= link_to discussion, method: :delete, data: { remote: true }, class:"delete-discussion" do%>
+                <i class="dis-icon glyphicon glyphicon-trash"></i>
+          <% end %>
+      <% end %>
+      </div>
+    </div>
+<% end %>
+<hr>
