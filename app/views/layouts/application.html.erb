@@ -12,9 +12,16 @@
     <header>
       <%= render 'layouts/navigation' %>
     </header>
+    <% if params[:controller].eql?("lecture_recordings") and params[:action].eql?("show") %>
+    <div class="content">
+       <%= render 'layouts/messages' %>
+       <%= yield %>
+    </div>
+    <% else %>
     <main role="main">
        <%= render 'layouts/messages' %>
        <%= yield %>
     </main>
+    <% end %>
   </body>
 </html>

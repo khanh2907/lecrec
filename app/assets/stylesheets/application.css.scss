@@ -13,3 +13,23 @@
  *= require_tree .
  *= require_self
  */
+
+.navbar {
+  margin-bottom:0;
+  border-radius: 0 !important;
+  -moz-border-radius: 0 !important;
+}
+
+.video-meta {
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+.btn-video {
+  float: right !important;
+  margin-left: 5px;
+}
+
+.video-bot-padding {
+  height: 100px;
+}

@@ -1,9 +1,68 @@
-<p id="notice"><%= notice %></p>
+<div>
+  <video id="video" controls=""  width="100%"  name="media">
+    <source src="<%=@lecture_recording.raw_video%>" type="video/webm">
+  </video>
+</div>
+<div class="video-meta">
+  <h2>
+    <%= @lecture_recording.name %>
+    <btn id="new-discussion-btn" class="btn btn-primary btn-video">New Discussion</btn>
+  </h2>
+  <h3>Discussions</h3>
+  <div class="discussions-holder">
 
-<p>
-  <strong>Name:</strong>
-  <%= @lecture_recording.name %>
-</p>
+    </div>
+  </div>
+</div>
+<div class="video-bot-padding">
+</div>
 
-<%= link_to 'Edit', edit_lecture_recording_path(@lecture_recording) %> |
-<%= link_to 'Back', lecture_recordings_path %>
+<div class="modal fade">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+      <h4 class="modal-title">New Discussion</h4>
+    </div>
+    <%= render 'discussion_form'%>
+  </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script>
+  updateDiscussions();
+  $("#new-discussion-btn").click(function() {
+    console.log('New Discussion AJAX SUUUTATOOO!');
+
+      $('.modal').modal({
+          backdrop: 'static'
+      });
+
+  })
+
+  $('#lecrec-discussion-form').ajaxForm(function() {
+      $('#lecture_recording_discussions_title').val("");
+      $('#lecture_recording_discussions_content').val("");
+      $('.modal').modal('hide');
+      updateDiscussions();
+  });
+
+  function updateDiscussions() {
+      $.getJSON("<%= discussions_json_url(:id => @lecture_recording.id) %>", function(data) {
+          data.forEach(function(discussion) {
+              var created_at = new Date(discussion.created_at);
+              if (!$("[discussion-id="+discussion.id+"]").length) {
+                  var html = "<div class='discussion' discussion-id='"
+                          + discussion.id +"'><hr><h4>"
+                          +discussion.title+"</h4><h5>"
+                          +calculateSince(created_at)+"</h5><div>"
+                          +discussion.content+"</div>";
+                  $('.discussions-holder').prepend(html);
+              }
+              else {
+                  $("[discussion-id="+discussion.id+"] .discussion-created-at").html(calculateSince(created_at))
+              }
+          })
+      });
+  }
+</script>

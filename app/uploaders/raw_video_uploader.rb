@@ -37,7 +37,7 @@ class RawVideoUploader < CarrierWave::Uploader::Base
 
   # White list for video formats
   def extension_white_list
-    %w(avi mkv mp4 wmv)
+    %w(avi mkv mp4 wmv ogg webm)
   end
 
   def move_to_store
