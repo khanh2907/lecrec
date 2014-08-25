@@ -9,6 +9,8 @@ class ApplicationController < ActionController::Base
     redirect_to root_url, :alert => exception.message
   end
 
+  Time.zone = "Australia/Sydney"
+
   protected
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) { |u| u.permit( :name, :password_confirmation, :password, :email ) }

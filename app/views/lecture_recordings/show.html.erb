@@ -4,9 +4,9 @@
   </video>
 </div>
 <div class="video-meta">
-  <h2>
-    <%= @lecture_recording.name %>
-  </h2>
+  <h2><%= @lecture_recording.name %></h2>
+  <h4 class="lecrec-uploaded-by-on"><i>uploaded by <%=User.find_by_id(@lecture_recording.user_id).name %> on <%=l @lecture_recording.created_at, :format => :string %></i></h4>
+  <br>
   <h3>
     Discussions
     <% unless current_user.nil? %>

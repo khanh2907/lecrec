@@ -1,34 +1,37 @@
-<h1>Listing lecture_recordings</h1>
+<div class="container">
+  <div class="row">
+    <h1>Lecture Recordings
+      <a href="<%=new_lecture_recording_path%>"><btn class="btn btn-primary right-btn">Upload Lecture Recording</btn></a>
+    </h1>
+    <div>
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Uploader</th>
+          <th colspan="3"></th>
+        </tr>
+        </thead>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>User</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @lecture_recordings.each do |lecture_recording| %>
-      <tr>
-        <td><%= link_to lecture_recording.name, lecture_recording %></td>
-        <td><%= lecture_recording.user_id %></td>
-        <td>
-          <%= link_to edit_lecture_recording_path(lecture_recording) do %>
-              <i class="glyphicon glyphicon-pencil" title="Edit" id="<%="edit-lecrec-#{lecture_recording.id}"%>"></i>
-          <% end %>
-        </td>
-        <td>
-          <%= link_to lecture_recording, method: :delete, data: { confirm: 'Are you sure?' } do%>
-              <i class="glyphicon glyphicon-trash" id="<%="delete-lecrec-#{lecture_recording.id}"%>"></i>
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Lecture recording', new_lecture_recording_path %>
+        <tbody>
+        <% @lecture_recordings.each do |lecture_recording| %>
+            <tr>
+              <td><%= link_to lecture_recording.name, lecture_recording %></td>
+              <td><%= User.find_by_id(lecture_recording.user_id).name %></td>
+              <td>
+                <%= link_to edit_lecture_recording_path(lecture_recording) do %>
+                    <i class="glyphicon glyphicon-pencil" title="Edit" id="<%="edit-lecrec-#{lecture_recording.id}"%>"></i>
+                <% end %>
+              </td>
+              <td>
+                <%= link_to lecture_recording, method: :delete, data: { confirm: 'Are you sure?' } do%>
+                    <i class="glyphicon glyphicon-trash" id="<%="delete-lecrec-#{lecture_recording.id}"%>"></i>
+                <% end %>
+              </td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

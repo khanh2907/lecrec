@@ -1,13 +1,24 @@
-<%= simple_form_for(@lecture_recording) do |f| %>
-  <%= f.error_notification %>
+<div class="lecrec-form">
+  <% if current_page?(new_lecture_recording_path)%>
+      <h3>Upload Lecture Recording</h3>
+  <% elsif current_page?(edit_lecture_recording_path) %>
+      <h3>Edit <%= @lecture_recording.name%></h3>
+  <% end %>
+  <%= simple_form_for(@lecture_recording) do |f| %>
+      <%= f.error_notification %>
+      <div class="form-inputs">
+        <p>
+            <%= f.label :name%>
+            <%= f.text_field :name, class: 'form-control' %>
+        </p>
+        <p>
+            <%= f.file_field :raw_video%>
+        </p>
 
-  <div class="form-inputs">
-    <%= f.input :name %>
-    <%= f.file_field :raw_video%>
-    <span>(.avi, .wmv, .mkv, .mp4)</span>
-  </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, :Submit, :id => "submit_lecture_recording"%>
-  </div>
-<% end %>
+      </div>
+      <div class="buttons">
+        <%= f.submit "Upload", :class => 'btn btn-primary' %>
+        <a href="<%=lecture_recordings_path%>"><btn class="btn btn-danger">Cancel</btn></a>
+      </div>
+  <% end %>
+</div>

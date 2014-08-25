@@ -4,12 +4,12 @@ class Ability
   def initialize(user)
     user ||= User.new
 
+    can [:read, :render_discussions, :get_discussions], LectureRecording
+
     can :manage, User do |u|
       u.id == user.id
     end
 
-    can :create, LectureRecording
-    can :read, LectureRecording
     can :manage, LectureRecording do |l|
       l.user_id == user.id
     end

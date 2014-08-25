@@ -37,7 +37,7 @@ main {
   @extend .container;
   padding-bottom: 80px;
   width: 100%;
-  margin-top: 51px; // accommodate the navbar
+  margin-top: 55px; // accommodate the navbar
   }
 section {
   @extend .row;
@@ -78,4 +78,20 @@ section {
   @extend .btn;
   @extend .btn-primary;
   @extend .btn-xs;
+}
+
+.lecrec-form {
+  padding-top: 30px;
+  max-width: 450px;
+  margin: 0 auto;
+}
+
+.lecrec-form form {
+  @extend .well;
+  @extend .well-lg;
+  padding-bottom: 40px;
+}
+
+.lecrec-form .buttons {
+  float: right !important;
 }

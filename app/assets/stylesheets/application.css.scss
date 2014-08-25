@@ -13,11 +13,32 @@
  *= require_tree .
  *= require_self
  */
+ @import "flat-ui";
 
 .navbar {
   margin-bottom:0;
   border-radius: 0 !important;
   -moz-border-radius: 0 !important;
+}
+
+.lecrec-brand {
+  height: 55px;
+  margin-right: 15px;
+}
+
+a {
+  text-decoration: none;
+}
+
+.navbar .nav ul {
+  width: auto;
+}
+
+.dropdown-menu {
+  width: 50px;
+  background-color:rgba(0, 0, 0, 0);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0);
+  border: none;
 }
 
 .video-meta {
@@ -67,4 +88,16 @@
   height: 500px;
   top: 50%;
   margin-top: -250px;
+}
+
+.discussion-content {
+  word-wrap: break-word;
+}
+
+.right-btn {
+  float: right !important;
+}
+
+.lecrec-uploaded-by-on {
+  margin-left: 20px;
 }
