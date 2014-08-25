@@ -10,17 +10,11 @@
       <%= f.email_field :email, :autofocus => true, class: 'form-control' %>
     </div>
     <div class="form-group">
-      <%- if devise_mapping.recoverable? %>
-        <%= link_to "Forgot password?", new_password_path(resource_name), class: 'right' %>
-      <% end -%>
       <%= f.label :password %>
       <%= f.password_field :password, class: 'form-control' %>
     </div>
-      <%= f.submit 'Sign in', :class => 'button right' %>
-      <% if devise_mapping.rememberable? -%>
-        <div class="checkbox">
-          <%= f.check_box :remember_me %> <%= f.label :remember_me %>
-        </div>
-      <% end -%>
+      <div class="centerize">
+        <%= f.submit 'Sign in', :class => 'btn btn-primary' %>
+      </div>
   <% end %>
 </div>

@@ -22,7 +22,7 @@
 }
 
 .lecrec-brand {
-  height: 55px;
+  height: 51px;
   margin-right: 15px;
 }
 
@@ -79,16 +79,6 @@ a {
   height: 200px;
 }
 
-.modal-dialog{
-  position: absolute;
-  left: 50%;
-  //now you must set a margin left under zero - value is a half width your window
-  margin-left: -312px;
-  // this same situation is with height - example
-  height: 500px;
-  top: 50%;
-  margin-top: -250px;
-}
 
 .discussion-content {
   word-wrap: break-word;
@@ -100,4 +90,10 @@ a {
 
 .lecrec-uploaded-by-on {
   margin-left: 20px;
+}
+
+.centerize {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
 }
