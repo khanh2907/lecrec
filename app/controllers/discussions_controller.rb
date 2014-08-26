@@ -1,5 +1,5 @@
 class DiscussionsController < ApplicationController
-  before_action :set_discussion, only: [:show, :edit, :update, :destroy]
+  before_action :set_discussion, only: [:show, :edit, :update, :destroy, :discussion_comment, :comment, :render_comments]
 
   # GET /discussions
   # GET /discussions.json
@@ -61,6 +61,22 @@ class DiscussionsController < ApplicationController
     end
   end
 
+  def comment
+    comments_params = discussion_comments_params[:comments]
+
+    @discussion.comments.create(content: comments_params[:content], user_id: current_user.id)
+
+    respond_to do |format|
+      format.html { redirect_to root_path, notice: 'plz work' }
+      format.json { head :no_content }
+    end
+  end
+
+  def render_comments
+    @comments = @discussion.comments.order(created_at: :asc)
+    render :layout => false
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_discussion
@@ -70,5 +86,9 @@ class DiscussionsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def discussion_params
       params.require(:discussion).permit(:title, :content, :lecture_recording_id, :user_id)
+    end
+
+    def discussion_comments_params
+      params.require(:discussion)
     end
 end

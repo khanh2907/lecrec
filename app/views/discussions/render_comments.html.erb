@@ -1,0 +1,20 @@
+<% @comments.each do |comment|%>
+<li id="cmt-<%=comment.id%>">
+  <p class="commentInfo"><%=User.find_by_id(comment.user_id).name%><small class="commentDateStamp"><%=l comment.created_at, :format => :comment %></small></p>
+  <div class="comment">
+    <p>
+      <%=comment.content%>
+      <% if !current_user.nil?%>
+      <div class="comment-buttons">
+          <a><i class="glyphicon glyphicon-thumbs-up"></i></a>
+          <% if  current_user.id == comment.user_id %>
+          <%= link_to comment, method: :delete, data: { remote: true }, class:"delete-comment", id: comment.discussion_id do%>
+                <i class="dis-icon glyphicon glyphicon-trash"></i>
+          <% end %>
+      <% end %>
+      </div>
+      <% end %>
+    </p>
+  </div>
+</li>
+<%end%>

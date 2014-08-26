@@ -2,18 +2,56 @@
     <div class="discussion" discussion-id="<%=discussion.id%>">
       <hr>
       <h4><%=discussion.title%></h4>
-      <h5 class="discussion-name"><%=User.find_by_id(discussion.user_id).name%></h5>
-      <h5 class="discussion-created-at" created-at-id="<%=discussion.id%>"></h5>
-      <div class="discussion-content"><%=h nl2br(encodeHTML(discussion.content)).html_safe%></div>
-      <div>
-        <a>
-          <i class="dis-icon glyphicon glyphicon-comment"></i>
-        </a>
+      <div class="buttons">
       <% if !current_user.nil? && current_user.id == discussion.user_id%>
           <%= link_to discussion, method: :delete, data: { remote: true }, class:"delete-discussion" do%>
                 <i class="dis-icon glyphicon glyphicon-trash"></i>
           <% end %>
       <% end %>
+      </div>
+      <strong class="discussion-name"><%=User.find_by_id(discussion.user_id).name%></strong>
+      <h6 class="discussion-created-at" created-at-id="<%=discussion.id%>"></h6>
+      <div class="discussion-content"><%=h nl2br(encodeHTML(discussion.content)).html_safe%></div>
+      <a class="show-comments" discussion-id="<%=discussion.id%>" href=""><i class="dis-icon glyphicon glyphicon-comment"></i> Comments (<%=discussion.comments.length%>)</a>
+
+      <div class="comments" discussion-id="<%=discussion.id%>" style="display: none">
+        <HR WIDTH="50%" SIZE="3">
+        <h5>Comments</h5>
+        <ol>
+          <% discussion.comments.each do |comment|%>
+          <li id="cmt-<%=comment.id%>">
+						<p class="commentInfo"><%=User.find_by_id(comment.user_id).name%><small class="commentDateStamp"><%=l comment.created_at, :format => :comment %></small></p>
+						<div class="comment">
+							<p>
+                <%=comment.content%>
+                <% if !current_user.nil?%>
+                <div class="comment-buttons">
+                    <a><i class="glyphicon glyphicon-thumbs-up"></i></a>
+                    <% if  current_user.id == comment.user_id %>
+                    <%= link_to comment, method: :delete, data: { remote: true }, class:"delete-comment", id: discussion.id do%>
+                          <i class="dis-icon glyphicon glyphicon-trash"></i>
+                    <% end %>
+                <% end %>
+                </div>
+                <% end %>
+              </p>
+						</div>
+					</li>
+          <%end%>
+        </ol>
+
+        <div class="comment-form" discussion-id="<%=discussion.id%>">
+          <%= form_for discussion,
+                        :url => comment_post_path(:id => discussion.id,:user_id => current_user.id),
+                        :method => "POST",
+                        :html => { :id => "lecrec-comment-form-#{discussion.id}" } do |f| %>
+           <%= f.fields_for :comments do |d| %>
+               <p>
+                 <%= d.text_field :content, class: 'form-control comment-content-field', placeholder: "Write a comment..."%>
+               </p>
+           <% end %>
+          <% end %>
+        </div>
       </div>
     </div>
 <% end %>

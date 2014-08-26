@@ -97,3 +97,65 @@ a {
   margin: 0 auto;
   text-align: center;
 }
+
+.discussion .buttons {
+  float: right !important;
+}
+
+.comments {
+  margin-top: 25px;
+  margin-left: 15px;
+}
+
+.comment {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  padding-left: 10px;
+  padding-right:10px;
+  padding-top:10px;
+  background: #eee;
+  margin-bottom: 15px;
+  margin-left: 10px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  max-width: 620px;
+}
+
+.comment:after {
+  content: "";
+  position: absolute;
+  top: 7px;
+  left: -15px;
+  border-style: solid;
+  border-width: 10px 15px 10px 0;
+  border-color: transparent #eee;
+  display: block;
+  width: 0;
+  z-index: 1;
+}
+
+.comments ol {
+  list-style: none;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.commentInfo, .commentDateStamp {
+  display: inline-block;
+  vertical-align: top;
+  margin: 0;
+  padding: 0;
+  line-height: 18px;
+  width: 140px;
+}
+
+.show-comments i{
+  padding-top: 10px;
+}
+
+.comment-buttons a{
+  padding-right: 10px;
+}

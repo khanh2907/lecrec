@@ -28,3 +28,4 @@ en:
       short: "%b %d"
       long: "%B %d, %Y"
       string: "%A, %b %d %Y"
+      comment: "%m/%d/%Y @ %l:%M %p"

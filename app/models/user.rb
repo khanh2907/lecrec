@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :roles
   has_many :lecture_recordings, dependent: :destroy
   has_many :discussions, dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable

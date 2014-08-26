@@ -63,6 +63,22 @@
             success: function(data) {
                 $('.discussions-holder').html(data);
 
+                $(".show-comments").click(function(event) {
+                  event.preventDefault();
+                  var $commentsDiv = $(".comments[discussion-id="+$(this).attr('discussion-id')+"]");
+                  $commentsDiv.toggle('slow');
+                })
+
+                $('.comment-form').ajaxForm(function() {
+                  var $focusedCommentField = $('.comment-content-field:focus');
+                  var disID = $focusedCommentField.parents('.comment-form').attr('discussion-id');
+                  $focusedCommentField.val('');
+                  $focusedCommentField.blur();
+                  updateDiscussionComments(disID);
+                })
+
+                applyCommentDeleteJS();
+
                 $('.delete-discussion').on('click', function(event) {
                     event.preventDefault();
                     var url = $(this).attr('href');
@@ -98,9 +114,32 @@
         });
     }
 
+    function updateDiscussionComments(discussionID) {
+      $.get("render_comments/"+discussionID, function(data) {
+          $(".comments[discussion-id="+ discussionID +"] ol").html(data);
+          applyCommentDeleteJS();
+      });
+    }
 
-
-
-
-
+    function applyCommentDeleteJS() {
+      $('.delete-comment').on('click', function(event) {
+          event.preventDefault();
+          var id = $(this).attr('id');
+          var url = $(this).attr('href');
+          var answer = confirm ("Are you sure you want to delete this comment?");
+          if (answer){
+              $.ajax({
+                  url: url,
+                  type: "post",
+                  dataType: "json",
+                  data: {"_method":"delete"},
+                  success: function() {
+                    updateDiscussionComments(id);
+                  }
+              });
+          }
+          else
+              return false;
+      });
+    }
 </script>
