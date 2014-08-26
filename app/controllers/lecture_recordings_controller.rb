@@ -1,6 +1,5 @@
 class LectureRecordingsController < ApplicationController
   before_filter :authenticate_user!
-  load_and_authorize_resource
   before_action :set_lecture_recording, only: [:show, :edit, :update, :destroy, :create_discussion, :get_discussions, :render_discussions]
 
   # GET /lecture_recordings
@@ -33,7 +32,7 @@ class LectureRecordingsController < ApplicationController
     @lecture_recording = current_user.lecture_recordings.create(lecture_recording_params)
 
     respond_to do |format|
-      if @lecture_recording.save 
+      if @lecture_recording.save
         format.html { redirect_to @lecture_recording, notice: 'Lecture recording was successfully created.' }
         format.json { render :show, status: :created, location: @lecture_recording }
       else
