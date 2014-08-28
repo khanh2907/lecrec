@@ -1,0 +1,23 @@
+<div class="user-edit-form">
+    <h3>Edit <%= @user.email%></h3>
+    <%= form_for @user do |f| %>
+      <% @user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+      <% end %>
+        <p>
+          <%= f.label :name %>
+          <%= f.text_field :name, class: 'form-control' %>
+        </p>
+        <label>Roles</label>
+        <div class="checkboxes">
+          <% for role in Role.all %>
+            <%= check_box_tag "user[role_ids][]", role.id, @user.roles.include?(role), :id => "role-checkbox-#{role.id}" %>
+            <label for=<%="role-checkbox-#{role.id}"%> class="checkbox-label"><%= role.name %></label>
+        <% end %>
+        </div>
+        <div class="centerize">
+          <span><%= f.submit "Update", :class => 'btn btn-primary' %></span>
+          <span><a href="<%=users_path%>"><btn class="btn btn-danger">Cancel</btn></a></span>
+        </div>
+    <% end %>
+</div>

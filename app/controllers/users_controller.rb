@@ -13,12 +13,42 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
+  def edit
+    @user = User.find(params[:id])
+  end
+
+  def update
+    @user.remove_all_roles if user_params[:role_ids].nil?
+    respond_to do |format|
+      if @user.update(user_params)
+        format.html { redirect_to users_path, notice: 'User was successfully updated.' }
+        format.json { render :show, status: :ok, location: users_path }
+      else
+        format.html { render :edit }
+        format.json { render json: users_path.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   def show
     @user = User.find(params[:id])
     respond_to do |format|
       format.html
       format.json { render json: @user }
     end
+  end
+
+  def destroy
+    @user.destroy
+    respond_to do |format|
+      format.html { redirect_to users_path, notice: 'User was successfully deleted.' }
+      format.json { head :no_content }
+    end
+  end
+
+  private
+  def user_params
+    params.require(:user).permit(:name, {:role_ids => []})
   end
 
 end

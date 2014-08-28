@@ -10,6 +10,26 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  def add_role(role_name)
+    if roles.find_by_name(role_name).nil? then
+      roles << Role.find_by_name(role_name)
+      save!
+    end
+  end
+
+  def remove_role(role_name)
+    unless roles.find_by_name(role_name).nil? then
+      roles.delete(Role.find_by_name(role_name))
+      save!
+    end
+  end
+
+  def remove_all_roles
+    Role.all.each do |role|
+      roles.delete(role)
+    end
+  end
+
   def is_admin?
   	roles.include?(Role.find_by_name("Administrator"))
   end

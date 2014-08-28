@@ -95,3 +95,23 @@ section {
 .lecrec-form .buttons {
   float: right !important;
 }
+
+.user-edit-form {
+  padding-top: 30px;
+  max-width: 450px;
+  margin: 0 auto;
+}
+
+.user-edit-form form {
+  @extend .well;
+  @extend .well-lg;
+  padding-bottom: 40px;
+}
+
+.user-edit-form .checkbox-label {
+  margin-left: -170px;
+}
+
+.user-edit-form .checkboxes {
+  padding: 15px;
+}

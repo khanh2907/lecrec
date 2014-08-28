@@ -15,4 +15,5 @@ Rails.application.routes.draw do
   root to: 'visitors#index'
   devise_for :users
   resources :users
+  match 'users/:id' => 'users#destroy', :via => :delete, :as => :admin_destroy_user
 end
