@@ -4,6 +4,9 @@ class RawVideoUploader < CarrierWave::Uploader::Base
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
   # include CarrierWave::MiniMagick
+  include CarrierWave::Video
+
+  process encode_video: [:webm, callbacks: { after_transcode: :set_success } ]
 
   # Choose what kind of storage to use for this uploader:
   storage :file
@@ -40,14 +43,10 @@ class RawVideoUploader < CarrierWave::Uploader::Base
     %w(avi mkv mp4 wmv ogg webm)
   end
 
-  def move_to_store
-    true
-  end
-
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
-  # def filename
-  #   "something.jpg" if original_filename
-  # end
+  def filename
+    "something.webm"
+  end
 
 end

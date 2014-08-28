@@ -16,6 +16,7 @@ gem 'pg'
 gem 'simple_form'
 gem 'cancan'
 gem 'carrierwave'
+gem 'carrierwave-video'
 gem "parsley-rails"
 group :development do
   gem 'better_errors'

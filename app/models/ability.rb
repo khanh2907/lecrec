@@ -8,9 +8,11 @@ class Ability
       u.id == user.id
     end
 
-    can :manage, LectureRecording do |l|
-      l.user_id == user.id
-    end
+    # can :manage, LectureRecording do |l|
+    #   l.user_id == user.id
+    # end
+
+
 
     if user.is_admin?
       can :manage, User
