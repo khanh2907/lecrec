@@ -12,12 +12,12 @@
             <%= f.text_field :name, class: 'form-control', :required => true %>
         </p>
         <p>
-            <%= f.file_field :raw_video, :required => true%>
+            <%= f.file_field :raw_video, :required => current_page?(new_lecture_recording_path)%>
         </p>
 
       </div>
       <div class="buttons">
-        <%= f.submit "Upload", :class => 'btn btn-primary', :id => 'upload-btn' %>
+        <%= f.submit "Save", :class => 'btn btn-primary', :id => 'save-btn' %>
         <a href="<%=lecture_recordings_path%>"><btn class="btn btn-danger">Cancel</btn></a>
       </div>
   <% end %>
@@ -29,13 +29,13 @@
       validateFront();
     });
 
-    $('#upload-btn').on('click', function () {
-      $('#new_lecture_recording').parsley().validate();
+    $('#save-btn').on('click', function () {
+      $('form').parsley().validate();
       validateFront();
     });
 
     var validateFront = function () {
-      if (true === $('#new_lecture_recording').parsley().isValid()) {
+      if (true === $('form').parsley().isValid()) {
         $('.bs-callout-info').removeClass('hidden');
         $('.bs-callout-warning').addClass('hidden');
       } else {
