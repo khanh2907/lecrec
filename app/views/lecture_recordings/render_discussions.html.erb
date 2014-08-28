@@ -44,10 +44,13 @@
           <%= form_for discussion,
                         :url => comment_post_path(:id => discussion.id,:user_id => current_user.id),
                         :method => "POST",
-                        :html => { :id => "lecrec-comment-form-#{discussion.id}" } do |f| %>
+                        :html => { :id => "lecrec-comment-form-#{discussion.id}",
+                        :data => {validate: 'parsley'} } do |f| %>
            <%= f.fields_for :comments do |d| %>
                <p>
-                 <%= d.text_field :content, class: 'form-control comment-content-field', placeholder: "Write a comment..."%>
+                 <%= d.text_field :content, class: 'form-control comment-content-field',
+                 placeholder: "Write a comment...",
+                 :required => true%>
                </p>
            <% end %>
           <% end %>

@@ -101,6 +101,8 @@ GEM
     nokogiri (1.6.3.1)
       mini_portile (= 0.6.0)
     orm_adapter (0.5.0)
+    parsley-rails (2.0.4.0)
+      railties (>= 3.0.0)
     pg (0.17.1)
     polyglot (0.3.5)
     quiet_assets (1.0.3)
@@ -209,6 +211,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   launchy
+  parsley-rails
   pg
   quiet_assets
   rails (= 4.1.0)

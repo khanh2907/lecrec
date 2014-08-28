@@ -29,10 +29,9 @@ class LectureRecordingsController < ApplicationController
   # POST /lecture_recordings
   # POST /lecture_recordings.json
   def create
-    @lecture_recording = current_user.lecture_recordings.create(lecture_recording_params)
-
+    @lecture_recording = current_user.lecture_recordings.new(lecture_recording_params)
     respond_to do |format|
-      if @lecture_recording.save
+      if @lecture_recording.save!
         format.html { redirect_to @lecture_recording, notice: 'Lecture recording was successfully created.' }
         format.json { render :show, status: :created, location: @lecture_recording }
       else

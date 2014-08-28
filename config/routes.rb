@@ -1,8 +1,4 @@
 Rails.application.routes.draw do
-  resources :comments
-
-  resources :discussions
-
   post 'discussion/post' => 'lecture_recordings#create_discussion'
   post 'comment/post' => 'discussions#comment'
 
@@ -13,6 +9,8 @@ Rails.application.routes.draw do
 
 
   resources :lecture_recordings
+  resources :discussions
+  resources :comments
 
   root to: 'visitors#index'
   devise_for :users

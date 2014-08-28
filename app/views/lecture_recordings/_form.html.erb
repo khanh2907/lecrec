@@ -4,21 +4,44 @@
   <% elsif current_page?(edit_lecture_recording_path) %>
       <h3>Edit <%= @lecture_recording.name%></h3>
   <% end %>
-  <%= simple_form_for(@lecture_recording) do |f| %>
+  <%= simple_form_for @lecture_recording, data: {validate: 'parsley'} do |f| %>
       <%= f.error_notification %>
       <div class="form-inputs">
         <p>
             <%= f.label :name%>
-            <%= f.text_field :name, class: 'form-control' %>
+            <%= f.text_field :name, class: 'form-control', :required => true %>
         </p>
         <p>
-            <%= f.file_field :raw_video%>
+            <%= f.file_field :raw_video, :required => true%>
         </p>
 
       </div>
       <div class="buttons">
-        <%= f.submit "Upload", :class => 'btn btn-primary' %>
+        <%= f.submit "Upload", :class => 'btn btn-primary', :id => 'upload-btn' %>
         <a href="<%=lecture_recordings_path%>"><btn class="btn btn-danger">Cancel</btn></a>
       </div>
   <% end %>
 </div>
+
+<script>
+  $(document).ready(function () {
+    $.listen('parsley:field:validate', function () {
+      validateFront();
+    });
+
+    $('#upload-btn').on('click', function () {
+      $('#new_lecture_recording').parsley().validate();
+      validateFront();
+    });
+
+    var validateFront = function () {
+      if (true === $('#new_lecture_recording').parsley().isValid()) {
+        $('.bs-callout-info').removeClass('hidden');
+        $('.bs-callout-warning').addClass('hidden');
+      } else {
+        $('.bs-callout-info').addClass('hidden');
+        $('.bs-callout-warning').removeClass('hidden');
+      }
+    };
+  });
+</script>

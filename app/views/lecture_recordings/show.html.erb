@@ -36,24 +36,41 @@
 <% end %>
 
 <script>
+  $(document).ready(function () {
     updateDiscussions();
     updateTimeSince()
 
     $("#new-discussion-btn").click(function() {
-        console.log('New Discussion AJAX SUUUTATOOO!');
-
         $('.modal').modal()
-
-
     })
 
-    $('#lecrec-discussion-form').ajaxForm(function() {
-        $('#lecture_recording_discussions_title').val("");
-        $('#lecture_recording_discussions_content').val("");
-        $('.modal').modal('hide');
-        updateDiscussions();
-        updateTimeSince();
+    $.listen('parsley:field:validate', function () {
+      validateFront();
     });
+
+    $('#submit-btn').on('click', function () {
+      $('#lecrec-discussion-form').parsley().validate();
+      validateFront();
+    });
+
+    var validateFront = function () {
+      if (true === $('#lecrec-discussion-form').parsley().isValid()) {
+        $('.bs-callout-info').removeClass('hidden');
+        $('.bs-callout-warning').addClass('hidden');
+        $('#lecrec-discussion-form').ajaxForm(function() {
+            $('#lecture_recording_discussions_title').val("");
+            $('#lecture_recording_discussions_content').val("");
+            $('.modal').modal('hide');
+            $('#lecrec-discussion-form').parsley().reset();
+            updateDiscussions();
+            updateTimeSince();
+        });
+      } else {
+        $('.bs-callout-info').addClass('hidden');
+        $('.bs-callout-warning').removeClass('hidden');
+      }
+    };
+
 
     var timer = setInterval(function(){updateTimeSince()}, 30000);
 
@@ -75,7 +92,7 @@
                   $focusedCommentField.val('');
                   $focusedCommentField.blur();
                   updateDiscussionComments(disID);
-                })
+                });
 
                 applyCommentDeleteJS();
 
@@ -142,4 +159,5 @@
               return false;
       });
     }
+  });
 </script>
