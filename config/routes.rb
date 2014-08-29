@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :semesters
+
+  resources :unit_of_studies
+
   post 'discussion/post' => 'lecture_recordings#create_discussion'
   post 'comment/post' => 'discussions#comment'
 

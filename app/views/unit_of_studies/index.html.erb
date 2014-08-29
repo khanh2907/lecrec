@@ -1,0 +1,29 @@
+<h1>Listing unit_of_studies</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Alpha code</th>
+      <th>Description</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @unit_of_studies.each do |unit_of_study| %>
+      <tr>
+        <td><%= unit_of_study.title %></td>
+        <td><%= unit_of_study.alpha_code %></td>
+        <td><%= unit_of_study.description %></td>
+        <td><%= link_to 'Show', unit_of_study %></td>
+        <td><%= link_to 'Edit', edit_unit_of_study_path(unit_of_study) %></td>
+        <td><%= link_to 'Destroy', unit_of_study, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Unit of study', new_unit_of_study_path %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140825142541) do
+ActiveRecord::Schema.define(version: 20140829011616) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 20140825142541) do
     t.integer  "user_id"
     t.string   "raw_video"
     t.string   "processed_path"
+    t.integer  "semester_id"
   end
 
   create_table "roles", force: true do |t|
@@ -51,6 +52,32 @@ ActiveRecord::Schema.define(version: 20140825142541) do
 
   create_table "roles_users", id: false, force: true do |t|
     t.integer "role_id"
+    t.integer "user_id"
+  end
+
+  create_table "semesters", force: true do |t|
+    t.integer  "session"
+    t.integer  "year"
+    t.integer  "unit_of_study_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "semesters_users", id: false, force: true do |t|
+    t.integer "semesters_id"
+    t.integer "user_id"
+  end
+
+  create_table "unit_of_studies", force: true do |t|
+    t.string   "title"
+    t.string   "alpha_code"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "unit_of_studies_users", id: false, force: true do |t|
+    t.integer "unit_of_study_id"
     t.integer "user_id"
   end
 

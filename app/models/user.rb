@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
 
   has_and_belongs_to_many :roles
+  has_and_belongs_to_many :unit_of_studies
+  has_and_belongs_to_many :semesters
   has_many :lecture_recordings, dependent: :destroy
   has_many :discussions, dependent: :destroy
   has_many :comments, dependent: :destroy

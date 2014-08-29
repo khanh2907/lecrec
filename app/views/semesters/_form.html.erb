@@ -1,0 +1,13 @@
+<%= simple_form_for(@semester) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :session %>
+    <%= f.input :year %>
+    <%= f.input :unit_of_study_id %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
