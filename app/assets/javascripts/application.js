@@ -15,6 +15,9 @@
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require parsley
+//= require list
+//= require list.pagination
+//= require list.fuzzysearch
 //= require_tree .
 
 window.setTimeout(function() {
