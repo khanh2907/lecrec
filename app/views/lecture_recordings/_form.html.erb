@@ -1,10 +1,10 @@
 <div class="lecrec-form">
-  <% if current_page?(new_lecture_recording_path)%>
+  <% if current_page?(new_unit_of_study_semester_lecture_recording_path)%>
       <h3>Upload Lecture Recording</h3>
-  <% elsif current_page?(edit_lecture_recording_path) %>
+  <% elsif current_page?(edit_unit_of_study_semester_lecture_recording_path) %>
       <h3>Edit <%= @lecture_recording.name%></h3>
   <% end %>
-  <%= simple_form_for @lecture_recording, data: {validate: 'parsley'} do |f| %>
+  <%= simple_form_for @lecture_recording, url: unit_of_study_semester_lecture_recordings_path(@uos, @semester), method: 'post', data: {validate: 'parsley'} do |f| %>
       <%= f.error_notification %>
       <div class="form-inputs">
         <p>
@@ -12,13 +12,13 @@
             <%= f.text_field :name, class: 'form-control', :required => true %>
         </p>
         <p>
-            <%= f.file_field :raw_video, :required => current_page?(new_lecture_recording_path)%>
+            <%= f.file_field :raw_video, :required => current_page?(new_unit_of_study_semester_lecture_recording_path)%>
         </p>
 
       </div>
       <div class="buttons">
         <%= f.submit "Save", :class => 'btn btn-primary', :id => 'save-btn' %>
-        <a href="<%=lecture_recordings_path%>"><btn class="btn btn-danger">Cancel</btn></a>
+        <a href="<%=unit_of_study_semester_path(@uos, @semester)%>"><btn class="btn btn-danger">Cancel</btn></a>
       </div>
   <% end %>
 </div>

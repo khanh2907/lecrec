@@ -1,8 +1,7 @@
 <div class="container">
   <div class="row">
     <h1><%= @uos.title%>
-      <a href="<%=edit_unit_of_study_semester_path(@uos, @semester)%>"><btn class="btn btn-default right-btn">Manage</btn></a>
-      <a href="<%=new_lecture_recording_path%>"><btn class="btn btn-primary right-btn">Upload Lecture Recording</btn></a>
+      <a href="<%=new_unit_of_study_semester_lecture_recording_path(@uos, @semester)%>"><btn class="btn btn-primary right-btn">Upload Lecture Recording</btn></a>
     </h1>
     <h3><%= @uos.alpha_code%></h3>
     <h4>Semester <%= @semester.session %>, <%= @semester.year %></h4>
@@ -17,22 +16,23 @@
         <tr>
           <th>Name</th>
           <th>Uploader</th>
+          <th>Uploaded On</th>
           <th colspan="3"></th>
         </tr>
         </thead>
-
         <tbody>
         <% @semester.lecture_recordings.each do |lecture_recording| %>
             <tr>
-              <td><%= link_to lecture_recording.name, lecture_recording %></td>
+              <td><%= link_to lecture_recording.name, unit_of_study_semester_lecture_recording_path(@uos, @semester, lecture_recording) %></td>
               <td><%= User.find_by_id(lecture_recording.user_id).name %></td>
+              <td><%=l lecture_recording.created_at, :format => :string %></td>
               <td>
-                <%= link_to edit_lecture_recording_path(lecture_recording) do %>
+                <%= link_to edit_unit_of_study_semester_lecture_recording_path(@uos, @semester, lecture_recording) do %>
                     <i class="glyphicon glyphicon-pencil" title="Edit" id="<%="edit-lecrec-#{lecture_recording.id}"%>"></i>
                 <% end %>
               </td>
               <td>
-                <%= link_to lecture_recording, method: :delete, data: { confirm: 'Are you sure?' } do%>
+                <%= link_to unit_of_study_semester_lecture_recording_path(@uos, @semester, lecture_recording), method: :delete, data: { confirm: 'Are you sure?' } do%>
                     <i class="glyphicon glyphicon-trash" id="<%="delete-lecrec-#{lecture_recording.id}"%>"></i>
                 <% end %>
               </td>

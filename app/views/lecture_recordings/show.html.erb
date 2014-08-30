@@ -132,7 +132,7 @@
     }
 
     function updateDiscussionComments(discussionID) {
-      $.get("render_comments/"+discussionID, function(data) {
+      $.get("/render_comments/"+discussionID, function(data) {
           $(".comments[discussion-id="+ discussionID +"] ol").html(data);
           applyCommentDeleteJS();
       });

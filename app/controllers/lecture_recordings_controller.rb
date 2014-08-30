@@ -2,6 +2,8 @@ class LectureRecordingsController < ApplicationController
   before_filter :authenticate_user!
   load_and_authorize_resource :except => [:create]
   before_action :set_lecture_recording, only: [:show, :edit, :update, :destroy, :create_discussion, :get_discussions, :render_discussions]
+  before_action :set_uos, except: [:create_discussion, :get_discussions, :render_discussions]
+  before_action :set_semester, except: [:create_discussion, :get_discussions, :render_discussions]
 
   # GET /lecture_recordings
   # GET /lecture_recordings.json
@@ -31,10 +33,11 @@ class LectureRecordingsController < ApplicationController
   # POST /lecture_recordings.json
   def create
     @lecture_recording = current_user.lecture_recordings.new(lecture_recording_params)
+    @lecture_recording.semester = @semester
     respond_to do |format|
       if @lecture_recording.save!
-        format.html { redirect_to @lecture_recording, notice: 'Lecture recording was successfully created.' }
-        format.json { render :show, status: :created, location: @lecture_recording }
+        format.html { redirect_to unit_of_study_semester_lecture_recording_path(@uos, @semester, @lecture_recording), notice: 'Lecture recording was successfully created.' }
+        format.json { render :show, status: :created, location: unit_of_study_semester_lecture_recording_path(@uos, @semester, @lecture_recording) }
       else
         format.html { render :new }
         format.json { render json: @lecture_recording.errors, status: :unprocessable_entity }
@@ -47,8 +50,8 @@ class LectureRecordingsController < ApplicationController
   def update
     respond_to do |format|
       if @lecture_recording.update(lecture_recording_params)
-        format.html { redirect_to @lecture_recording, notice: 'Lecture recording was successfully updated.' }
-        format.json { render :show, status: :ok, location: @lecture_recording }
+        format.html { redirect_to unit_of_study_semester_lecture_recording_path(@uos, @semester, @lecture_recording), notice: 'Lecture recording was successfully updated.' }
+        format.json { render :show, status: :ok, location: unit_of_study_semester_lecture_recording_path(@uos, @semester, @lecture_recording) }
       else
         format.html { render :edit }
         format.json { render json: @lecture_recording.errors, status: :unprocessable_entity }
@@ -61,7 +64,7 @@ class LectureRecordingsController < ApplicationController
   def destroy
     @lecture_recording.destroy
     respond_to do |format|
-      format.html { redirect_to lecture_recordings_url, notice: 'Lecture recording was successfully destroyed.' }
+      format.html { redirect_to unit_of_study_semester_path(@uos, @semester), notice: 'Lecture recording was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -74,7 +77,7 @@ class LectureRecordingsController < ApplicationController
                                             user_id: params[:user_id])
 
       respond_to do |format|
-        format.html { redirect_to @lecture_recording, notice: 'plz work' }
+        format.html { redirect_to unit_of_study_semester_lecture_recording_path(@lecture_recording.semester.unit_of_study, @lecture_recording.semester, @lecture_recording), notice: 'plz work' }
         format.json { head :no_content }
       end
   end
@@ -92,6 +95,14 @@ class LectureRecordingsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_lecture_recording
       @lecture_recording = LectureRecording.find(params[:id])
+    end
+
+    def set_semester
+      @semester = Semester.find(params[:semester_id])
+    end
+
+    def set_uos
+      @uos = UnitOfStudy.find(params[:unit_of_study_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
