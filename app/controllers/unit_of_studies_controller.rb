@@ -71,6 +71,6 @@ class UnitOfStudiesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def unit_of_study_params
-      params.require(:unit_of_study).permit(:title, :alpha_code, :description)
+      params.require(:unit_of_study).permit(:title, :alpha_code, :description, {:user_ids => []})
     end
 end

@@ -17,8 +17,12 @@
               <td><%=user.name%></td>
               <td><%=user.email%></td>
               <td>
-                <%user.roles.each do |role|%>
+                <% if user.roles.length == 0 %>
+                  Student
+                <% else %>
+                  <%user.roles.each do |role|%>
                     <span><%=role.name%></span>
+                  <%end%>
                 <%end%>
               </td>
               <td><%= user.last_sign_in_at %></td>

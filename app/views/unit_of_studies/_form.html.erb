@@ -1,6 +1,9 @@
 <%= simple_form_for(@unit_of_study) do |f| %>
-  <%= f.error_notification %>
-
+  <p>
+    <% @unit_of_study.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </p>
   <div class="form-inputs">
     <p>
       <%= f.label :title %>
@@ -10,10 +13,37 @@
       <%= f.label :alpha_code %>
       <%= f.text_field :alpha_code, class: "form-control"%>
     </p>
-  </div>
+    <hr>
+    <label>Unit Coordinators</label>
+    <div id="users-list">
+      <input type="text" class="search form-control" id="fuzzysearch" placeholder="Search for users"/>
+      <br>
+      <div style="max-height: 300px; overflow-y: scroll;">
+        <ul class="list no-bullets">
+          <% User.all.each do |user| %>
+            <% if user.roles.length == 0 %>
+              <li class>
+                <span class="user">
+                  <%= check_box_tag "unit_of_study[user_ids][]", user.id, @unit_of_study.users.include?(user), :id => "user-checkbox-#{user.id}"%>
+                  <label for=<%="user-checkbox-#{user.id}"%> class="checkbox-label"><%= "#{user.name} (#{user.email})" %></label>
+                </span>
+              </li>
+            <% end %>
+          <% end %>
+        </ul>
+      </div>
+    </div>
 
+  </div>
   <div class="centerize">
     <%= f.submit "Save", :class => 'btn btn-primary', :id => 'save-btn' %>
     <a href="<%=unit_of_studies_path%>"><btn class="btn btn-danger">Cancel</btn></a>
   </div>
 <% end %>
+
+<script>
+  var userList = new List('users-list', {
+    valueNames: ['user'],
+    plugins: [ ListFuzzySearch()]
+  });
+</script>
