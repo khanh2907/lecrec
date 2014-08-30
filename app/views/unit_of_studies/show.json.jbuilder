@@ -1,1 +1,1 @@
-json.extract! @unit_of_study, :id, :title, :alpha_code, :description, :created_at, :updated_at
+json.extract! @unit_of_study, :id, :title, :alpha_code, :created_at, :updated_at

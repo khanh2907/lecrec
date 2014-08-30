@@ -12,9 +12,14 @@ class Ability
       l.user_id == user.id
     end
 
+    can :read, LectureRecording do |l|
+      l.semester.users.include user
+    end
+
     if user.is_admin?
       can :manage, User
       can :manage, LectureRecording
+      can :manage, UnitOfStudy
     end
   end
 end

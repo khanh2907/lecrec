@@ -1,10 +1,10 @@
 class SemestersController < ApplicationController
   before_action :set_semester, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_uos
   # GET /semesters
   # GET /semesters.json
   def index
-    @semesters = Semester.all
+    @semesters = Semester.where(:unit_of_study_id => params[:unit_of_study_id])
   end
 
   # GET /semesters/1
@@ -28,7 +28,7 @@ class SemestersController < ApplicationController
 
     respond_to do |format|
       if @semester.save
-        format.html { redirect_to @semester, notice: 'Semester was successfully created.' }
+        format.html { redirect_to unit_of_study_semester_path(@uos, @semester), notice: 'Semester was successfully created.' }
         format.json { render :show, status: :created, location: @semester }
       else
         format.html { render :new }
@@ -65,6 +65,10 @@ class SemestersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_semester
       @semester = Semester.find(params[:id])
+    end
+
+    def set_uos
+      @uos = UnitOfStudy.find_by_id(params[:unit_of_study_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -1,5 +1,6 @@
 class LectureRecordingsController < ApplicationController
   before_filter :authenticate_user!
+  load_and_authorize_resource :except => [:create]
   before_action :set_lecture_recording, only: [:show, :edit, :update, :destroy, :create_discussion, :get_discussions, :render_discussions]
 
   # GET /lecture_recordings

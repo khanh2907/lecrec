@@ -1,4 +1,6 @@
 class UnitOfStudiesController < ApplicationController
+  before_filter :authenticate_user!
+  load_and_authorize_resource
   before_action :set_unit_of_study, only: [:show, :edit, :update, :destroy]
 
   # GET /unit_of_studies

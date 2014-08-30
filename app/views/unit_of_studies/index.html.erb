@@ -11,17 +11,15 @@
             <th class="sort" data-sort="title">Title</th>
             <th class="sort" data-sort="alpha-code">Alpha code</th>
             <th>Sessions</th>
-            <th>Lecture Recordings</th>
             <th></th>
           </tr>
         </thead>
         <tbody class="list">
           <% @unit_of_studies.each do |unit_of_study| %>
             <tr>
-              <td class="title"><%=link_to unit_of_study.title, unit_of_study%></td>
+              <td class="title"><%=link_to unit_of_study.title, unit_of_study_semesters_path(unit_of_study)%></td>
               <td class="alpha-code"><%= unit_of_study.alpha_code %></td>
               <td><%= unit_of_study.semesters.length %></td>
-              <td><%= unit_of_study.number_of_lecture_recordings %></td>
               <td>
                 <%= link_to edit_unit_of_study_path(unit_of_study.id) do %>
                     <i class="glyphicon glyphicon-pencil" title="Edit" id="<%="edit-uos-#{unit_of_study.id}"%>"></i>
