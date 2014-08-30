@@ -2,11 +2,17 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :session %>
-    <%= f.input :year %>
+    <p>
+      <%= f.label :session %>
+      <%= f.select :session, 1..2, {}, { :class => 'form-control' } %>
+    </p>
+    <p>
+      <%= f.label :year %>
+      <%= f.select :year,  (Time.zone.now.year - 20)..(Time.zone.now.year + 2), {:selected => Time.zone.now.year}, { :class => 'form-control' } %>
+    </p>
   </div>
-
-  <div class="form-actions">
-    <%= f.button :submit %>
+  <div class="centerize">
+    <%= f.submit "Save", :class => 'btn btn-primary', :id => 'save-btn' %>
+    <a href="<%=unit_of_study_semesters_path(@uos)%>"><btn class="btn btn-danger">Cancel</btn></a>
   </div>
 <% end %>

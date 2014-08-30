@@ -14,7 +14,7 @@ class SemestersController < ApplicationController
 
   # GET /semesters/new
   def new
-    @semester = Semester.new
+    @semester = Semester.new(unit_of_study_id: @uos.id)
   end
 
   # GET /semesters/1/edit
@@ -25,6 +25,7 @@ class SemestersController < ApplicationController
   # POST /semesters.json
   def create
     @semester = Semester.new(semester_params)
+    @semester.unit_of_study = @uos
 
     respond_to do |format|
       if @semester.save
@@ -56,7 +57,7 @@ class SemestersController < ApplicationController
   def destroy
     @semester.destroy
     respond_to do |format|
-      format.html { redirect_to semesters_url, notice: 'Semester was successfully destroyed.' }
+      format.html { redirect_to unit_of_study_semesters_path(@uos), notice: 'Semester was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
