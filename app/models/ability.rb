@@ -8,12 +8,10 @@ class Ability
       u.id == user.id
     end
 
+    can [:create_discussion,:get_discussions,:render_discussions,:show], LectureRecording
+
     can :manage, LectureRecording do |l|
       l.user_id == user.id
-    end
-
-    can :read, LectureRecording do |l|
-      l.semester.users.include user
     end
 
     if user.is_admin?

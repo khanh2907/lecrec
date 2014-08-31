@@ -164,3 +164,8 @@ a {
 .no-bullets{
   list-style-type: none;
 }
+
+tr.hover {
+   cursor: pointer;
+   background-color: rgba(12, 42, 49, 0.1);
+}

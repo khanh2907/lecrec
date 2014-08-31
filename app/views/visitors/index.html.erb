@@ -1,1 +1,5 @@
-<h3>blah blah blah</h3>
+<% if user_signed_in? %>
+  <%= render "uos" %>
+<% else %>
+  <%= render "landing" %>
+<% end %>

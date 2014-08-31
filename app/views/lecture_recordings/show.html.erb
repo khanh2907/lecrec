@@ -5,6 +5,7 @@
 </div>
 <div class="video-meta">
   <h2><%= @lecture_recording.name %></h2>
+  <h4><%=link_to "#{@uos.alpha_code} - Semester #{@semester.session}, #{@semester.year}", unit_of_study_semester_path(@uos, @semester)%></h4>
   <h4 class="lecrec-uploaded-by-on"><i>uploaded by <%=User.find_by_id(@lecture_recording.user_id).name %> on <%=l @lecture_recording.created_at, :format => :string %></i></h4>
   <br>
   <h3>
@@ -14,12 +15,10 @@
     <% end %>
   </h3>
   <div class="discussions-holder">
-
   </div>
 </div>
 </div>
-<div class="video-bot-padding">
-</div>
+<div class="video-bot-padding"></div>
 
 <% unless current_user.nil? %>
     <div class="modal fade">
