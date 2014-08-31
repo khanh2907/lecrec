@@ -1,4 +1,6 @@
 class SemestersController < ApplicationController
+  before_filter :authenticate_user!
+  load_and_authorize_resource :except => [:create, :new]
   before_action :set_semester, only: [:show, :edit, :update, :destroy]
   before_action :set_uos
   # GET /semesters
@@ -43,8 +45,8 @@ class SemestersController < ApplicationController
   def update
     respond_to do |format|
       if @semester.update(semester_params)
-        format.html { redirect_to @semester, notice: 'Semester was successfully updated.' }
-        format.json { render :show, status: :ok, location: @semester }
+        format.html { redirect_to unit_of_study_semester_path(@uos, @semester), notice: 'Semester was successfully updated.' }
+        format.json { render :show, status: :ok, location: unit_of_study_semester_path(@uos, @semester) }
       else
         format.html { render :edit }
         format.json { render json: @semester.errors, status: :unprocessable_entity }

@@ -22,7 +22,15 @@ class LectureRecordingsController < ApplicationController
 
   # GET /lecture_recordings/new
   def new
-    @lecture_recording = LectureRecording.new
+    if !current_user.is_admin? and !current_user.unit_of_studies.include? @uos
+        begin
+          redirect_to :back, :alert => "You are not authorized to access this page."
+        rescue
+          redirect_to root_url, :alert => "You are not authorized to access this page."
+        end
+
+    end
+    @lecture_recording = LectureRecording.new()
   end
 
   # GET /lecture_recordings/1/edit

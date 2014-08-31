@@ -35,4 +35,8 @@ class User < ActiveRecord::Base
   def is_admin?
   	roles.include?(Role.find_by_name("Administrator"))
   end
+
+  def is_lecturer?
+    roles.include?(Role.find_by_name("Lecturer"))
+  end
 end

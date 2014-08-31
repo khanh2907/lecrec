@@ -21,7 +21,7 @@
       <div style="max-height: 300px; overflow-y: scroll;">
         <ul class="list no-bullets">
           <% User.all.each do |user| %>
-            <% if user.roles.length == 0 %>
+            <% if user.roles.length > 0 %>
               <li class>
                 <span class="user">
                   <%= check_box_tag "unit_of_study[user_ids][]", user.id, @unit_of_study.users.include?(user), :id => "user-checkbox-#{user.id}"%>

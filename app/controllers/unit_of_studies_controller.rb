@@ -6,7 +6,11 @@ class UnitOfStudiesController < ApplicationController
   # GET /unit_of_studies
   # GET /unit_of_studies.json
   def index
-    @unit_of_studies = UnitOfStudy.all
+    if current_user.is_admin?
+      @unit_of_studies = UnitOfStudy.all
+    else
+      @unit_of_studies = current_user.unit_of_studies
+    end
   end
 
   # GET /unit_of_studies/1

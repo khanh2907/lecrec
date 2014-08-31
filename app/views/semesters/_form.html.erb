@@ -1,18 +1,40 @@
-<%= simple_form_for @semester, :url => unit_of_study_semesters_path(@uos), :method => :post do |f| %>
-  <%= f.error_notification %>
+<% if current_page?(new_unit_of_study_semester_path) %>
+  <%= simple_form_for @semester, :url => unit_of_study_semesters_path(@uos) do |f| %>
+    <%= f.error_notification %>
 
-  <div class="form-inputs">
-    <p>
-      <%= f.label :session %>
-      <%= f.select :session, 1..2, {}, { :class => 'form-control' } %>
-    </p>
-    <p>
-      <%= f.label :year %>
-      <%= f.select :year,  (Time.zone.now.year - 20)..(Time.zone.now.year + 2), {:selected => Time.zone.now.year}, { :class => 'form-control' } %>
-    </p>
-  </div>
-  <div class="centerize">
-    <%= f.submit "Save", :class => 'btn btn-primary', :id => 'save-btn' %>
-    <a href="<%=unit_of_study_semesters_path(@uos)%>"><btn class="btn btn-danger">Cancel</btn></a>
-  </div>
+    <div class="form-inputs">
+      <p>
+        <%= f.label :session %>
+        <%= f.select :session, 1..2, {}, { :class => 'form-control' } %>
+      </p>
+      <p>
+        <%= f.label :year %>
+        <%= f.select :year,  (Time.zone.now.year - 20)..(Time.zone.now.year + 2), {:selected => Time.zone.now.year}, { :class => 'form-control' } %>
+      </p>
+    </div>
+    <div class="centerize">
+      <%= f.submit "Save", :class => 'btn btn-primary', :id => 'save-btn' %>
+      <a href="<%=unit_of_study_semesters_path(@uos)%>"><btn class="btn btn-danger">Cancel</btn></a>
+    </div>
+  <% end %>
+
+<% else %>
+  <%= simple_form_for @semester, :url => unit_of_study_semester_path(@uos, @semester) do |f| %>
+    <%= f.error_notification %>
+
+    <div class="form-inputs">
+      <p>
+        <%= f.label :session %>
+        <%= f.select :session, 1..2, {}, { :class => 'form-control' } %>
+      </p>
+      <p>
+        <%= f.label :year %>
+        <%= f.select :year,  (Time.zone.now.year - 20)..(Time.zone.now.year + 2), {:selected => Time.zone.now.year}, { :class => 'form-control' } %>
+      </p>
+    </div>
+    <div class="centerize">
+      <%= f.submit "Save", :class => 'btn btn-primary', :id => 'save-btn' %>
+      <a href="<%=unit_of_study_semesters_path(@uos)%>"><btn class="btn btn-danger">Cancel</btn></a>
+    </div>
+  <% end %>
 <% end %>
