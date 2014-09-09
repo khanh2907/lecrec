@@ -64,6 +64,25 @@ class SemestersController < ApplicationController
     end
   end
 
+  def enrol
+    @users = User.all.except(current_user)
+  end
+
+  def enrol_student
+    student = User.find_by_id(enrol_params[:student_id])
+    unless student.nil?
+      if @semester.users.include? student
+        @semester.users.delete(student)
+      else
+        @semester.users << student
+      end
+    end
+    respond_to do |format|
+      format.html { redirect_to unit_of_study_semesters_path(@uos)}
+      format.json { head :no_content }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_semester
@@ -77,5 +96,9 @@ class SemestersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def semester_params
       params.require(:semester).permit(:session, :year, :unit_of_study_id)
+    end
+
+    def enrol_params
+      params.require(:enrol).permit(:student_id)
     end
 end

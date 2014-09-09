@@ -7,6 +7,9 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'unit_of_studies/:unit_of_study_id/semesters/:id/enrol' => 'semesters#enrol', as: 'semester_enrol'
+  patch 'unit_of_studies/:unit_of_study_id/semesters/:id/enrol' => 'semesters#enrol_student'
+
   post 'discussion/post' => 'lecture_recordings#create_discussion'
   post 'comment/post' => 'discussions#comment'
 

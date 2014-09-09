@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="row">
+    <h1>Enrol Students</h1>
+    <h2><%= @uos.title%></h2>
+    <h3><%= @uos.alpha_code%></h3>
+    <h4>Semester <%= @semester.session %>, <%= @semester.year %></h4>
+    <div>
+      <div  id="student-table-wrapper">
+        <input type="text" class="search" id="fuzzysearch" placeholder="Search for Student"/>
+        <table class="table" id="users-table">
+          <thead>
+          <th>Enrolled?</th>
+          <th class="sort" data-sort="name">Name</th>
+          <th class="sort" data-sort="email">Email Address</th>
+          </thead>
+          <tbody class="list">
+          <% @users.each do |user| %>
+            <tr>
+              <td width="10%" style="text-align:center">
+                <input type="checkbox" class="active-checkbox" id=<%=user.id%> <%= @semester.users.include?(user) ? 'checked':''%>>
+              </td>
+              <td class="name"><%=user.name%></td>
+              <td class="email"><%=user.email%></td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+  $(".active-checkbox").bootstrapSwitch({size: 'small', onColor: 'success', offColor: 'danger', onText: 'Yes', offText: 'No'});
+
+  $(".active-checkbox").on('switchChange.bootstrapSwitch', function(event, state) {
+    var studentID = $(this).attr('id');
+    $.ajax({
+      url: "<%=semester_enrol_path(@uos, @semester)%>.json",
+      type: "patch",
+      dataType: "json",
+      data: {"enrol": {"student_id": studentID}}
+    });
+  });
+
+  var studentList = new List('student-table-wrapper', {
+    valueNames: ['name','email'],
+    page: 15,
+    plugins: [ ListFuzzySearch(), ListPagination({outerWindow: 2}) ]
+  });
+
+</script>
