@@ -1,48 +1,40 @@
 Lecrec
 ================
 
-This application was generated with the [rails_apps_composer](https://github.com/RailsApps/rails_apps_composer) gem
-provided by the [RailsApps Project](http://railsapps.github.io/).
+The LECREC system is designed to include a multitude of specific functions to allow for the encouragement of learning throughout a lecture recording especially by utilising the section based video discussion thread feature. The project is expected to take 12 weeks, including project management, documentation and full implementation.
 
-Rails Composer is open source and supported by subscribers. Please join RailsApps to support development of Rails Composer.
-
-Problems? Issues?
+Features
 -----------
 
-Need help? Ask on Stack Overflow with the tag 'railsapps.'
+- User Management
+- Unit of Study Management
+- Lecture Recording Upload and Managament
+- Lecture Recording Discussion Threads and Comments
+- Embedded video discussions for community users
+- Lecture Quiz feature (maybe)
 
-Your application contains diagnostics in the README file. Please provide a copy of the README file when reporting any issues.
-
-If the application doesn’t work as expected, please [report an issue](https://github.com/RailsApps/rails_apps_composer/issues)
-and include the diagnostics.
-
-Ruby on Rails
+Requirements
 -------------
 
 This application requires:
 
 - Ruby 2.1.1
 - Rails 4.1.0
-
-Learn more about [Installing Rails](http://railsapps.github.io/installing-rails.html).
+- Postgresql 9+
 
 Getting Started
 ---------------
 
-Documentation and Support
--------------------------
+Create database user
 
-Issues
--------------
+	sudo su postgres
+	createuser lecrec
 
-Similar Projects
-----------------
+Setup app
 
-Contributing
-------------
-
-Credits
--------
-
-License
--------
+	git clone https://github.com/khanh2907/lecrec.git
+	cd lecrec
+	bundle install
+	rake db:setup
+	rake db:seed_uos
+	rails s
