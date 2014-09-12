@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  before_action :set_comment, only: [:show, :edit, :update, :destroy]
+  before_action :set_comment, only: [:show, :edit, :update, :destroy, :like]
 
   # GET /comments
   # GET /comments.json
@@ -59,6 +59,15 @@ class CommentsController < ApplicationController
       format.html { redirect_to comments_url, notice: 'Comment was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def like
+    if @comment.users_liked.include? current_user
+      @comment.users_liked.delete current_user
+    else
+      @comment.users_liked << current_user
+    end
+    render :json => @comment.users_liked.length
   end
 
   private
