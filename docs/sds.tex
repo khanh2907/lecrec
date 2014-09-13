@@ -98,7 +98,7 @@ To implement this feature, we have decided to use Redis, an advanced key-value c
 \includegraphics[scale=0.8]{image08}
 \caption{Package diagram of the LECREC system}
 \end{figure}
-The LECREC system contains four main packages which make up the complete function of the web platform project. The first package contains the main classes for the "Subject Courses" part of the system. This includes the Unit of Study of a particular course, each of which connects to a "Semester" class as all units are set with a particular semester, and then a "Lecture Recording" class so that each semester of a unit of study can contain a lecture recording.
+The LECREC system contains four main packages which make up the complete function of the web platform project. The first package contains the main classes for the ``Subject Courses" part of the system. This includes the Unit of Study of a particular course, each of which connects to a ``Semester" class as all units are set with a particular semester, and then a ``Lecture Recording" class so that each semester of a unit of study can contain a lecture recording.
 
 The User Accounts package encompasses the information of classes for each user, this utilises the User databases and also roles such as whether a user is the administrator, lecturer or a student. The Discussion Threads package then outlines the discussion classes where a user can create a video timed based discussion of a lecture recording or also a comment through the comment class. Lastly the Community Videos package integrates the category class where a user can create a new category that they would like to discuss, and a video class so that embedded videos can be added for each category.
 
@@ -112,7 +112,7 @@ Overall, the system has a specific user account and roles for a particular user 
 \end{figure}
 
 \subsection{User Familiarity}
-The interface that we have designed is based around user-oriented terms and concepts, in this case, university oriented. We use concepts such as 'unit of study', 'lectures', 'semesters' which are university related, but also commonly used terms in modern web applications such as 'discussion', 'comments' and 'likes'.
+The interface that we have designed is based around user-oriented terms and concepts, in this case, university oriented. We use concepts such as `unit of study', `lectures', `semesters' which are university related, but also commonly used terms in modern web applications such as `discussion', `comments' and `likes'.
 
 \begin{figure}[h!]
 \centering
@@ -131,10 +131,10 @@ We have chosen to use the Twitter Bootstrap frontend framework to style our appl
 
 Another benefit of the Bootstrap framework, is that it also provides many built in functionality such as modals and alert JavaScripts, which will be used often in the application.
 
-With the use of the Ruby on Rails application layout rendering, which renders a template for the headers and navigation links on every page and the use of DRY (don't repeat yourself) CSS, fonts, colors, button, icons and forms throughout the application this makes the web platform always consistent. The user should not be surprised by any styling that is not consistent with the rest of the application.
+With the use of the Ruby on Rails application layout rendering, which renders a template for the headers and navigation links on every page and the use of DRY (don't repeat yourself) CSS, fonts, colours, button, icons and forms throughout the application this makes the web platform always consistent. The user should not be surprised by any styling that is not consistent with the rest of the application.
 
 \clearpage
-\section{User Guidance and Recoverability}
+\subsection{User Guidance and Recoverability}
 Ruby on Rails comes default with user guidance and error alerts. Additionally Bootstrap provides the alert styling with appropriate colours to match the messages (green for success and red for errors or warnings). 
 
 \begin{figure}[h!]
@@ -144,14 +144,17 @@ Ruby on Rails comes default with user guidance and error alerts. Additionally Bo
 \caption{Page for enrolled subject outline demonstrating positive and negative feedback}
 \end{figure}
 
+\subsection{User Diversity}
+Lecturers and System Administrators will have additional pages and functionality. The lecturer will be able to access the unit of study management of units they have access to and be able to access the lecture recording upload forms and discussion management panel. The system administrator will be able to manage every aspect of the application and will be provided with a variety of different forms and services.
+
+We have also decided to use HTML validation on our form which will validate the forms dynamically on submit and will not reload the page if the form is not valid for submission. Error handling and recovery is handled by the Rails controllers or authentication and authorization modules such as Devise and CanCan.
+
 \begin{figure}[h!]
 \centering
-\includegraphics[scale=0.25]{image15}
+\includegraphics[scale=0.3]{image15}
 \caption{Tabulated list of units of study}
 \end{figure}
 
-\clearpage
-We have also decided to use HTML validation on our form which will validate the forms dynamically on submit and will not reload the page if the form is not valid for submission. Error handling and recovery is handled by the Rails controllers or authentication and authorization modules such as Devise and CanCan.
 
 \begin{figure}[h!]
 \centering
@@ -178,7 +181,7 @@ We have also decided to use HTML validation on our form which will validate the 
 \begin{flushleft}
 \begin{tabular}{| p{1.2cm} | p{3cm} | l | p{2cm} | p{3cm} | p{4cm} |}
 \hline
-Where & Variable & Type & Constraints & Example & Definition\\ \hline
+\textbf{Where} & \textbf{Variable} & \textbf{Type} & \textbf{Constraints} & \textbf{Example} & \textbf{Definition} \\ \hline
 User & id & Integer & Primary Key & 1448 & id of user \\ \hline
 & name & String & & John Mayer & name of the user \\ \hline
 & email & String & not NULL & john@mayer.com & email to send messages to \\ \hline
@@ -352,20 +355,13 @@ HTML5 is the latest standard for HTML and it is still not fully support by some 
 \end{itemize}
 
 \section{Team contributions}
-Alexander Woo Hyun Jung 
- 
-SDS discussion. Documentation planning, write up and  diagram construction. \\
+\setlength\parindent{0pt} 
+Alexander Woo Hyun Jung: SDS discussion. Documentation planning, write up and  diagram construction.
 
-Kelvin D'Amore  
+Kelvin D'Amore: SDS discussion. Documentation planning, write up and  diagram construction. 
 
-SDS discussion. Documentation planning, write up and  diagram construction. \\
+Khanh Cao Quoc Nguyen: SDS discussion. Documentation planning, write up and  diagram construction. 
 
-Khanh Cao Quoc Nguyen  
-
-SDS discussion. Documentation planning, write up and  diagram construction. \\
-
-Martin Groen 
-
-SDS discussion. Documentation planning, write up and  diagram construction. \\
+Martin Groen: SDS discussion. Documentation planning, write up and  diagram construction. 
 
 \end{document}
