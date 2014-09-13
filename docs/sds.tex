@@ -37,7 +37,7 @@
 \parsep=0pt
 \setlength\parindent{4pt} 
 
-\title{ELEC3609 Deliverable 2 \\ System Design Document \\[1cm] {\Huge{LECREC}}}
+\title{ELEC3609 Deliverable 2 \\ Design Specifications \\[1cm] {\Huge{LECREC}}}
 
 \author{Alexander Woo Hyun Jung  310250811 \\ Khanh Cao Quoc Nguyen 311253865 \\ Kelvin D'Amore 430515051 \\ Martin Groen 311182291}
 \date{}
@@ -50,13 +50,13 @@
 \newpage
 
 \section{System Design Document}
-
+\subsection{System Architecture Diagram}
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.4]{image06}
 \caption{System architecture diagram of the LECREC system}
 \end{figure}
-Refer to the Package diagram (Figure 2) and the MVC diagram (Figure ?) for more information on the Ruby on Rails application and its internal workings.
+Refer to the Package diagram (Figure 2) and the MVC diagram (Figure 15) for more information on the Ruby on Rails application and its internal workings.
 
 \subsection{Storage and Persistent Data Strategy}
 \subsubsection{Database and Persistent}
@@ -65,7 +65,7 @@ Since this application utilises an MVC framework, it is required that the models
 \subsubsection{Lecture Recording Storage}
 LECREC is not only required to be able to receive and store video content of lecture recordings, but also serves the videos on the application frontend. This will require the video to be stored in a location where the Apache web server can access and serve easily such as the public directory where Ruby on Rails serves the majority of it's assets such as images, styling scripts and JavaScripts. 
 
-These lecture videos can get up to a varying range of gigabytes depending on lecture lengths and thus will need to utilise a server that can store and handle this data. The versions that is kept would be both the original video file and also the processed version which ensures that there is a backup in case a video needs to be reprocessed again or changed at a later date. This means even higher storage is needed to be able to hold both these data.
+These lecture recordings can get up to a varying range of gigabytes depending on lecture lengths and thus will need to utilise a server that can store and handle this data. The versions that is kept would be both the original video file and also the processed version which ensures that there is a backup in case a video needs to be reprocessed again or changed at a later date. This means even higher storage is needed to be able to hold both these data.
 
 \subsubsection{Temporarily Stored and Cached}
 As typical with most web platforms, temporarily stored and cached data will be utilised to ensure that positive user interaction can be implemented quickly and easily. 
@@ -88,7 +88,7 @@ By using HTML5, we employ server sent events rather than polling. This is more e
 \subsection{Concurrent Processes}
 Concurrent processes can always be an area for concern for any type of development in terms of problems with race conditions, message output and inputs and lastly synchronisation. Due to this, the LECREC system will be designed to ensure as little use of concurrent processing and threads as possible. As such the only part that will utilise concurrency will be the upload lecture recording system of the platform. 
 
-The main reason why this has been elected for concurrency is so that a lecture video can be uploaded to the website without affecting the main thread utilised for the user interface. This allows for appropriate usage for a user to be able to keep using the main functions of the web platform while the upload completes.
+The main reason why this has been elected for concurrency is so that a lecture recording can be uploaded to the website without affecting the main thread utilised for the user interface. This allows for appropriate usage for a user to be able to keep using the main functions of the web platform while the upload completes.
 
 To implement this feature, we have decided to use Redis, an advanced key-value cache and store along with the RESQUE gem which is a Ruby library for creating background jobs, placing those jobs on multiple queues, and processing them later.
 
@@ -108,7 +108,7 @@ Overall, the system has a specific user account and roles for a particular user 
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.3]{image01}
-\caption{Enrolled subject display with lecturer videos links}
+\caption{Enrolled subject display with lecturer recordings links}
 \end{figure}
 
 \subsection{User Familiarity}
@@ -117,13 +117,13 @@ The interface that we have designed is based around user-oriented terms and conc
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.3]{image11}
-\caption{Lecturer video page with discussions and comments}
+\caption{Lecturer recording page with discussions and comments}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.3]{image04}
-\caption{New discussion dialog on lecturer video page}
+\caption{New discussion dialog on lecture recording page}
 \end{figure}
 
 \subsection{Consistency and Minimal Surprise}
@@ -251,7 +251,6 @@ Community Category & id & Integer & Primary Key & 234 & id value of each communi
 \end{flushleft}
 
 \clearpage
-\section{Entity Relational Diagram}
 \begin{figure}[h!]
 \centering
 \includegraphics[scale=0.5]{image10}
