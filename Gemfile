@@ -19,6 +19,8 @@ gem 'carrierwave'
 gem "parsley-rails"
 gem 'listjs-rails'
 gem 'bootstrap-switch-rails'
+gem 'resque'
+gem 'streamio-ffmpeg'
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_21]

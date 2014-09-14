@@ -1,6 +1,9 @@
 <div>
   <video id="video" controls="" width="100%" name="media">
     <source src="<%=@lecture_recording.raw_video%>" type="video/webm">
+    <% unless @lecture_recording.processed_path.nil? %>
+      <source src="<%=@lecture_recording.processed_path%>" type="video/mp4">
+    <% end %>
   </video>
 </div>
 <div class="video-meta">

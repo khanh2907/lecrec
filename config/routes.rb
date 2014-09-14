@@ -1,6 +1,5 @@
+require 'resque/server'
 Rails.application.routes.draw do
-
-
   resources :unit_of_studies do
     resources :semesters do
       resources :lecture_recordings
@@ -26,4 +25,6 @@ Rails.application.routes.draw do
   devise_for :users
   resources :users
   match 'users/:id' => 'users#destroy', :via => :delete, :as => :admin_destroy_user
+
+  mount Resque::Server.new, at: "/resque"
 end
