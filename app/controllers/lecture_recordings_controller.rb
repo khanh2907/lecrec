@@ -44,7 +44,10 @@ class LectureRecordingsController < ApplicationController
     @lecture_recording.semester = @semester
     respond_to do |format|
       if @lecture_recording.save!
-        Resque.enqueue(VideoConverter, @lecture_recording.id)
+        valid_formats = ['.webm', 'mp4']
+        unless valid_formats.include? File.extname(@lecture_recording.raw_video.current_path)
+          Resque.enqueue(VideoConverter, @lecture_recording.id)
+        end
         format.html { redirect_to unit_of_study_semester_lecture_recording_path(@uos, @semester, @lecture_recording), notice: 'Lecture recording was successfully created.' }
         format.json { render :show, status: :created, location: unit_of_study_semester_lecture_recording_path(@uos, @semester, @lecture_recording) }
       else
