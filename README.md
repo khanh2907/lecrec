@@ -30,11 +30,29 @@ Create database user
 	sudo su postgres
 	createuser lecrec
 
+Install Redis
+
+	$ wget http://download.redis.io/releases/redis-2.8.15.tar.gz
+	$ tar xzf redis-2.8.15.tar.gz
+	$ cd redis-2.8.15
+	$ make	
+
+Start Redis
+
+	$ src/redis-server	
+
 Setup app
 
-	git clone https://github.com/khanh2907/lecrec.git
-	cd lecrec
-	bundle install
-	rake db:setup
-	rake db:seed_uos
-	rails s
+	$ git clone https://github.com/khanh2907/lecrec.git
+	$ cd lecrec
+	$ bundle install
+	$ rake db:setup
+	$ rake db:seed_uos
+
+Start RESQUE worker
+
+	$ bundle exec rake environment resque:work QUEUE=convert
+
+Start app
+
+	$ rails s
