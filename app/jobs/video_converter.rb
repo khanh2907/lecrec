@@ -14,7 +14,7 @@ class VideoConverter
 
       movie.transcode(processed_path) { |progress| puts progress }
 
-      processed_url = lecrec.raw_video.url.gsub('.avi', '.mp4')
+      processed_url = lecrec.raw_video.url.gsub(ext, '.mp4')
       lecrec.processed_path = processed_url
       lecrec.save!
     end
