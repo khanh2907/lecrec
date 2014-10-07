@@ -1,0 +1,14 @@
+<%= simple_form_for(@video, url: community_videos_path(@community), method: 'post', data: {validate: 'parsley'} ) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :title %>
+    <%= f.input :content_url %>
+    <%= f.input :description %>
+
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

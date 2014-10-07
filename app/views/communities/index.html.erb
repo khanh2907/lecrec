@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="row">
+    <h1>Communities
+      <a href="<%=new_community_path%>"><btn class="btn btn-primary right-btn">Create a Community</btn></a>
+    </h1>
+    <div>
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Community</th>
+          <th>Description</th>
+          <th>Threads</th>
+          <th>Latest Thread</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <% @communities.each do |community| %>
+          <tr>
+            <td><%= link_to community.title, community %></td>
+            <td><%= community.description%></td>
+            <td><%= community.videos.length%></td>
+            <td>
+              <% unless community.videos.last.nil? %>
+                <%= community.videos.last.title%>
+              <% else %>
+                -
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+

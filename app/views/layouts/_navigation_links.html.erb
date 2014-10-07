@@ -1,6 +1,7 @@
 <%# add navigation links to this file %>
 <% if user_signed_in? %>
   <li><%=link_to "Lectures", root_path%></li>
+  <li><%=link_to "Community", communities_path%></li>
 <% else %>
   <li><%=link_to "Home", root_path%></li>
 <% end %>

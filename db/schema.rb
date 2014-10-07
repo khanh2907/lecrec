@@ -11,16 +11,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141007023143) do
+ActiveRecord::Schema.define(version: 20141007083805) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "categories", force: true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "comments", force: true do |t|
     t.text     "content"
     t.integer  "user_id"
     t.integer  "discussion_id"
     t.integer  "comment_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "communities", force: true do |t|
+    t.string   "title"
+    t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -34,6 +48,7 @@ ActiveRecord::Schema.define(version: 20141007023143) do
     t.datetime "updated_at"
     t.string   "start_time"
     t.string   "end_time"
+    t.integer  "video_id"
   end
 
   create_table "lecture_recordings", force: true do |t|
@@ -104,6 +119,16 @@ ActiveRecord::Schema.define(version: 20141007023143) do
   create_table "users_like_comments", id: false, force: true do |t|
     t.integer "user_id"
     t.integer "comment_id"
+  end
+
+  create_table "videos", force: true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.string   "content_url"
+    t.integer  "community_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

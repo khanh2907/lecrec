@@ -1,0 +1,26 @@
+
+<% unless current_user.nil? %>
+  <div class="discussion-form">
+    <%= form_for @video,
+                 :url => video_discussion_path(:id => @video.id, :user_id => current_user.id),
+                 :method => "POST",
+                 :html => { :id => "lecrec-discussion-form", :data => {validate: 'parsley'} } do |f| %>
+      <div class="modal-body">
+        <%= f.fields_for :discussions do |d| %>
+          <p>
+            <%= d.label :title%>
+            <%= d.text_field :title, :autofocus => true, placeholder:'Title of the discussion', class: 'form-control', :required => true%>
+          </p>
+          <p>
+            <%= d.label :content%>
+            <%= d.text_area :content, placeholder:'Write your thoughts or questions here...', class: 'form-control', :required => true%>
+          </p>
+        <% end %>
+      </div>
+      <div class="modal-footer">
+        <%= f.submit "Submit", :class => 'btn btn-primary', :id => 'submit-btn'%>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    <% end %>
+  </div>
+<% end %>

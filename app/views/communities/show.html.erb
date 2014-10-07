@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="row">
+    <h1>Community - <%= @community.title%>
+      <a href="<%=new_community_video_path @community%>"><btn class="btn btn-primary right-btn">New Thread</btn></a>
+    </h1>
+    <%= @community.description %>
+    <div>
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Topic</th>
+          <th>Description</th>
+          <th>Views</th>
+          <th>Discussions</th>
+          <th>Posted by</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <% @community.videos.each do |video| %>
+          <tr>
+            <td><%= link_to video.title, community_video_path(@community, video) %></td>
+            <td><%= video.description %></td>
+            <td><%= video.description %></td>
+            <td><%= video.discussions.length %></td>
+            <td><%= video.user.name %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <%= link_to communities_path do %>
+    <btn class="btn btn-default">Back</btn>
+  <% end %>
+</div>
+
