@@ -8,6 +8,20 @@
     <% end %>
     Your browser does not support this video.
   </video>
+  <div class="overlays">
+
+    <%@lecture_recording.discussions.each do |d|%>
+      <% unless d.start_time.blank?%>
+        <div class="video-overlay" id="<%= d.id %>" start-time="<%= d.start_time %>" end-time="<%= d.end_time %>" style="display:none;">
+          <strong><%= d.title %></strong>: <%= truncate d.content %>
+          <a class="show-discussion" id="<%= d.id %>" title="Show Discussion" href=""><i class="glyphicon glyphicon-search"></i></a>
+        </div>
+      <%end%>
+    <%end%>
+
+
+  </div>
+
 </div>
 <div class="video-meta">
   <h2><%= @lecture_recording.name %></h2>
@@ -43,11 +57,69 @@
 <script>
   $(document).ready(function () {
     updateDiscussions();
-    updateTimeSince()
+    updateTimeSince();
+    var video = document.getElementById("video");
 
+    // scroll to discussion
+    $('.show-discussion').click(function(e) {
+      video.pause();
+      e.preventDefault();
+      var id = $(this).attr('id');
+      scrollTo($('.discussion[discussion-id="'+ id +'"]'));
+    })
+
+    // show discussion alerts in video
+    video.addEventListener("timeupdate", function() {
+      $('.video-overlay').each(function() {
+        var it = $(this);
+        var startSecond = parseSeconds(it.attr('start-time'));
+        var endSecond = parseSeconds(it.attr('end-time'));
+
+        if (isNaN(endSecond))
+          endSecond = startSecond + 30;
+
+        if (video.currentTime < startSecond || video.currentTime > endSecond) {
+          it.hide();
+        }
+        else {
+          it.show();
+        }
+
+      })
+
+    }, false);
+
+    // pause the video and set the current time in the discussion form
     $("#new-discussion-btn").click(function() {
+      video.pause()
+      $('#lecture_recording_discussions_start_time').val(currentTime(0));
+      $('#lecture_recording_discussions_end_time').val(currentTime(30));
       $('.modal').modal()
     })
+
+    function scrollTo(target) {
+      $('html,body').animate({
+        scrollTop: target.offset().top
+      }, 500);
+    }
+
+    function currentTime(offset) {
+      var s = parseInt(video.currentTime % 60) + offset;
+      var m = parseInt((video.currentTime / 60) % 60);
+
+      var sString;
+      if (s < 10) sString = '0'+s
+      else sString = s
+
+      return m + ':' + sString
+    }
+
+    function parseSeconds(timestamp) {
+      var timeVals = timestamp.split(':');
+      var m = parseFloat(timeVals[0]);
+      var s = parseFloat(timeVals[1]);
+      return m * 60 + (s);
+    }
 
     $.listen('parsley:field:validate', function () {
       validateFront();
@@ -76,7 +148,6 @@
       }
     };
 
-
     var timer = setInterval(function(){updateTimeSince()}, 30000);
 
     function updateDiscussions() {
@@ -100,6 +171,13 @@
           });
 
           applyCommentDeleteJS();
+
+          $('.start-time').click(function(e) {
+            e.preventDefault();
+            video.currentTime = parseSeconds($(this).attr('start-time'));
+            scrollTo($('#video'))
+            video.play();
+          })
 
           $('.delete-discussion').on('click', function(event) {
             event.preventDefault();

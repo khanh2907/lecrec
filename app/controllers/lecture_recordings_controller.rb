@@ -86,6 +86,8 @@ class LectureRecordingsController < ApplicationController
 
       @lecture_recording.discussions.create(title: discussion_params[:title],
                                             content: discussion_params[:content],
+                                            start_time: discussion_params[:start_time],
+                                            end_time: discussion_params[:end_time],
                                             user_id: params[:user_id])
 
       respond_to do |format|

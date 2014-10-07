@@ -2,6 +2,16 @@
     <div class="discussion" discussion-id="<%=discussion.id%>">
       <hr>
       <h4><%=discussion.title%></h4>
+      <% unless discussion.start_time.blank?%>
+        <h5>
+          <a class="start-time" start-time="<%= discussion.start_time %>" href="">
+            <%= discussion.start_time %>
+            <% unless discussion.end_time.blank?%>
+              <%= "- #{discussion.end_time}" %>
+            <% end %>
+          </a>
+        </h5>
+      <% end %>
       <div class="buttons">
       <% if !current_user.nil? && current_user.id == discussion.user_id%>
           <%= link_to discussion, method: :delete, data: { remote: true }, class:"delete-discussion" do%>

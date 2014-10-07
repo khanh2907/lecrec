@@ -166,6 +166,31 @@ a {
 }
 
 tr.hover {
-   cursor: pointer;
-   background-color: rgba(12, 42, 49, 0.1);
+  cursor: pointer;
+  background-color: rgba(12, 42, 49, 0.1);
+}
+
+.discussion-form-control {
+  width: 100px;
+  display: -webkit-inline-box;
+}
+
+.overlays {
+  position: absolute;
+  top: 55px;
+  color: #FFF;
+  text-align: center;
+  width: 100%;
+  z-index: 2147483647;
+}
+
+.video-overlay {
+  background-color: rgba(31, 31, 31, 0.52);
+  padding: 10px 0;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+#video {
+  z-index: 1;
 }

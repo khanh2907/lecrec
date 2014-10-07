@@ -9,11 +9,17 @@
               <%= f.fields_for :discussions do |d| %>
                   <p>
                     <%= d.label :title%>
-                    <%= d.text_field :title, :autofocus => true, class: 'form-control', :required => true%>
+                    <%= d.text_field :title, :autofocus => true, placeholder:'Title of the discussion', class: 'form-control', :required => true%>
                   </p>
+                  <div>
+                    <%= d.label :from%>
+                    <%= d.text_field :start_time, placeholder:'Start Time', class: 'form-control discussion-form-control'%>
+                    <%= d.label :to%>
+                    <%= d.text_field :end_time, placeholder:'End Time', class: 'form-control discussion-form-control'%>
+                  </div>
                   <p>
                     <%= d.label :content%>
-                    <%= d.text_area :content, class: 'form-control', :required => true%>
+                    <%= d.text_area :content, placeholder:'Write your thoughts or questions here...', class: 'form-control', :required => true%>
                   </p>
               <% end %>
             </div>
