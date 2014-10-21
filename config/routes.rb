@@ -36,5 +36,5 @@ Rails.application.routes.draw do
   resources :users
   match 'users/:id' => 'users#destroy', :via => :delete, :as => :admin_destroy_user
 
-  mount Resque::Server.new, at: "/resque"
+  mount Resque::Server.new, :at => '/resque', constraints: ResqueAccessConstraints.new
 end
