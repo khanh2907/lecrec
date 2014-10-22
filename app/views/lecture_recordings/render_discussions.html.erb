@@ -34,7 +34,7 @@
 						<div class="comment">
 							<p>
                 <%=comment.content%>
-                <% if !current_user.nil?%>
+                <% if current_user.present?%>
                 <div class="comment-buttons">
                   <span>
                     <%= link_to comment_like_path(comment.id), method: 'patch', data: { remote: true }, class:"like-comment", id: "like-#{comment.id}" do%>
