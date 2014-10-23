@@ -91,6 +91,11 @@ class LectureRecordingsController < ApplicationController
                                             user_id: params[:user_id])
 
       respond_to do |format|
+        owner = @lecture_recording.user
+        if owner != current_user
+          owner.notifications.create(content: "#{current_user.name} has started a discussion on #{@lecture_recording.semester.unit_of_study.alpha_code} - #{@lecture_recording.name}",
+                                     path: unit_of_study_semester_lecture_recording_path(@lecture_recording.semester.unit_of_study, @lecture_recording.semester, @lecture_recording))
+        end
         format.html { redirect_to unit_of_study_semester_lecture_recording_path(@lecture_recording.semester.unit_of_study, @lecture_recording.semester, @lecture_recording), notice: 'plz work' }
         format.json { head :no_content }
       end

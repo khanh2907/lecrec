@@ -66,6 +66,37 @@ class DiscussionsController < ApplicationController
 
     @discussion.comments.create(content: comments_params[:content], user_id: current_user.id)
 
+    owner = @discussion.user
+    lecture_recording = @discussion.lecture_recording
+    video = @discussion.video
+
+    if lecture_recording.present?
+      if owner != current_user
+        owner.notifications.create(content: "#{current_user.name} commented on your discussion #{@discussion.title}",
+                                   path: unit_of_study_semester_lecture_recording_path(lecture_recording.semester.unit_of_study, lecture_recording.semester, lecture_recording))
+      else
+        @discussion.comments.pluck(:user).each do |u|
+          if u != current_user or u != owner
+            u.notifications.create(content: "#{current_user.name} has commented on #{@discussion.title}",
+                                   path: unit_of_study_semester_lecture_recording_path(lecture_recording.semester.unit_of_study, lecture_recording.semester, lecture_recording))
+          end
+        end
+      end
+    else
+      if owner != current_user
+        owner.notifications.create(content: "#{current_user.name} commented on your discussion #{@discussion.title}",
+                                   path: community_video_path(video.community_id, video))
+      else
+        @discussion.comments.pluck(:user).each do |u|
+          if u != current_user or u != owner
+            u.notifications.create(content: "#{current_user.name} has commented on #{@discussion.title}",
+                                   path: community_video_path(video.community_id, video))
+          end
+        end
+      end
+    end
+
+
     respond_to do |format|
       format.html { redirect_to root_path, notice: 'plz work' }
       format.json { head :no_content }

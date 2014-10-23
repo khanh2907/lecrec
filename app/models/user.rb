@@ -9,6 +9,8 @@ class User < ActiveRecord::Base
   has_many :discussions, dependent: :destroy
   has_many :comments, dependent: :destroy
 
+  has_many :notifications, dependent: :destroy
+
   has_and_belongs_to_many :liked_comments, :class_name => "Comment", :join_table => :users_like_comments
 
   devise :database_authenticatable, :registerable,

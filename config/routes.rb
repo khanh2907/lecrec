@@ -28,6 +28,8 @@ Rails.application.routes.draw do
 
   get 'render_comments/:id' => 'discussions#render_comments', as: 'discussions_render_comments'
 
+  get 'notifications' => 'users#notifications', as: 'user_notifications'
+
   resources :discussions
   resources :comments
 

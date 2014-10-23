@@ -29,3 +29,4 @@ en:
       long: "%B %d, %Y"
       string: "%A, %b %d %Y"
       comment: "%m/%d/%Y @ %l:%M %p"
+      notification: "%m/%d/%Y %l:%M %p"

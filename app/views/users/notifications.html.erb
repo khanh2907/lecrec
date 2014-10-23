@@ -1,0 +1,23 @@
+<br>
+<div class="container">
+  <div class="row">
+
+    <h3>Notifications</h3>
+    <table class="table">
+      <thead>
+      <tr>
+        <th></th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <% current_user.notifications.order(created_at: :desc).each do |n| %>
+        <tr>
+          <td><%=l n.created_at, :format => :comment %></td>
+          <td><%= link_to n.content, n.path%></td>
+        <tr>
+      <% end  %>
+      </tbody>
+    </table>
+  </div>
+</div>

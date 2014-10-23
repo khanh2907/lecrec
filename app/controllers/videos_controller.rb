@@ -72,6 +72,11 @@ class VideosController < ApplicationController
                                           user_id: params[:user_id])
 
     respond_to do |format|
+      owner = @video.user
+      if owner != current_user
+        owner.notifications.create(content: "#{current_user.name} has started a discussion on #{@video.community.title} video #{@video.title}",
+                                   path: community_video_path(@video.community_id, @video))
+      end
       format.html { redirect_to community_video_path(@video.community_id, @video), notice: 'plz work' }
       format.json { head :no_content }
     end
