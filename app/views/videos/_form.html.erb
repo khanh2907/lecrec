@@ -1,14 +1,38 @@
+<div class="lecrec-form">
+  <h1>New video for <%= @community.title%></h1>
 <%= simple_form_for(@video, url: community_videos_path(@community), method: 'post', data: {validate: 'parsley'} ) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :title %>
-    <%= f.input :content_url %>
-    <%= f.input :description %>
+    <p>
+      <%= f.label :title%>
+      <%= f.text_field :title, class: 'form-control', :required => true %>
+    </p>
+    <p>
+      <%= f.label :content_url%>
+      <%= f.text_field :content_url, class: 'form-control', :required => true %>
+    </p>
 
+    <p>
+      <%= f.label :description%>
+      <%= f.text_area :description, class: 'form-control', :required => true %>
+    </p>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
+  <div class="form-actions centerize">
+    <%= f.submit "Save", :class => 'btn btn-primary', :id => 'save-btn' %>
+    <a class="btn btn-danger" href="<%= community_path(@community) %>">Cancel</a>
   </div>
 <% end %>
+
+</div>
+
+<script>
+  $(document).ready(function () {
+
+    $('#save-btn').on('click', function () {
+      $('form').parsley().validate();
+    });
+
+  });
+</script>

@@ -1,5 +1,50 @@
 <div class="container">
+    <div class="jumbotron">
+      <h1>LECREC</h1>
+      <p>An inovative lecture recording platform for discussion and sharing ideas.</p>
+      <p><a class="btn btn-primary btn-lg" role="button">Learn more</a></p>
+    </div>
   <div class="row">
-    <h1>LECREC</h1>
+    <div class="col-md-6">
+      <div class="well">
+        <h2>Recent Lecture Recordings</h2>
+        <hr>
+        <% if @lecrecs.empty?%>
+          There are no lecture recordings yet. Hassle your lecturers!
+        <% else %>
+          <% @lecrecs.each do |l| %>
+            <a href="<%= unit_of_study_semester_lecture_recording_path(l.semester.unit_of_study, l.semester, l) %>">
+              <h5><span class="label label-flat"><%= l.semester.unit_of_study.alpha_code%></span>  <%= l.name%></h5>
+              <h5><small> by <%= l.user.name %> on <%=l l.created_at, :format => :comment %></small></h5>
+            </a>
+            <hr>
+          <% end %>
+        <% end %>
+        <a href="<%= lectures_path%>">See more...</a>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="well">
+        <h2>Recent Community Posts</h2>
+        <hr>
+        <% if Video.all.empty?%>
+          There are no community posts yet. :(
+        <% else %>
+          <% Video.order(created_at: :desc).limit(5).each do |v| %>
+            <a href="<%= community_video_path(v.community_id, v) %>">
+              <h5><span class="label label-flat"><%= v.community.title%></span>  <%= v.title %></h5>
+              <h5><small> by <%= v.user.name %></small></h5>
+
+              <p class="vid-desc"><small><%= v.description %></small></p>
+            </a>
+            <hr>
+          <% end %>
+        <% end %>
+        <a href="<%= communities_path%>">See more...</a>
+      </div>
+    </div>
   </div>
 </div>
+
+

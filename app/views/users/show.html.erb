@@ -1,28 +1,37 @@
 <div class="container">
   <div class="row">
+    <div class="col-md-12">
+      <h1>Profile</h1>
+      <h2>Your Details</h2>
+      <br>
+      <p><strong>Name: </strong><%= @user.name if @user.name %></p>
+      <p><strong>Email: </strong><%= @user.email if @user.email %></p>
+      <p><strong>Roles: </strong>
+        <% @user.roles.each do |r|%>
+          <%= r.name %>
+        <% end %>
+      </p>
 
-    <h3>Your Details</h3>
-    <p>Name: <%= @user.name if @user.name %></p>
-    <p>Email: <%= @user.email if @user.email %></p>
-
-    <h4>Units of Study</h4>
-    <table class="table">
-      <thead>
+      <hr>
+      <h2>Enrolled Units of Study</h2>
+      <table class="table">
+        <thead>
         <tr>
           <th>Alpha Code</th>
           <th>Title</th>
           <th>Session</th>
         </tr>
-      </thead>
-      <tbody>
-      <% @user.semesters.each do |semester| %>
-        <tr>
-          <td><%= semester.unit_of_study.alpha_code  %></td>
-          <td><%= semester.unit_of_study.title %></td>
-          <td><%= "Semester #{semester.session}, #{semester.year} " %></td>
-        <tr>
-      <% end  %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+        <% @user.semesters.each do |semester| %>
+          <tr>
+            <td><%= semester.unit_of_study.alpha_code  %></td>
+            <td><%= semester.unit_of_study.title %></td>
+            <td><%= "Semester #{semester.session}, #{semester.year} " %></td>
+          <tr>
+        <% end  %>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

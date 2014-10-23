@@ -34,6 +34,8 @@ Rails.application.routes.draw do
   resources :comments
 
   root to: 'visitors#index'
+  get 'lectures' => 'visitors#lectures', as: 'lectures'
+
   devise_for :users
   resources :users
   match 'users/:id' => 'users#destroy', :via => :delete, :as => :admin_destroy_user
