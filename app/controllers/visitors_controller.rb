@@ -5,7 +5,7 @@ class VisitorsController < ApplicationController
     @lecrecs = []
 
     current_user.semesters.each do |s|
-      @lecrecs << s.lecture_recordings.last unless s.lecture_recordings.last.nil?
+      @lecrecs << s.lecture_recordings.where(ready: true).last unless s.lecture_recordings.last.nil?
     end
 
   end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141023095633) do
+ActiveRecord::Schema.define(version: 20141023215013) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 20141023095633) do
     t.string   "raw_video"
     t.string   "processed_path"
     t.integer  "semester_id"
+    t.boolean  "ready",          default: false
   end
 
   create_table "notifications", force: true do |t|

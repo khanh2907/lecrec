@@ -16,6 +16,7 @@ class VideoConverter
 
       processed_url = lecrec.raw_video.url.gsub(ext, '.mp4')
       lecrec.processed_path = processed_url
+      lecrec.ready = true
       lecrec.save!
     end
   end

@@ -14,9 +14,16 @@ class LectureRecordingsController < ApplicationController
   # GET /lecture_recordings/1
   # GET /lecture_recordings/1.json
   def show
+
+
+
     respond_to do |format|
-      format.html
-      format.json { render json: @lecture_recording }
+      if @lecture_recording.ready
+        format.html
+        format.json { render json: @lecture_recording }
+      else
+        format.html {redirect_to lectures_path, alert: "#{@lecture_recording.semester.unit_of_study.alpha_code} - #{@lecture_recording.name} is not ready. Please try again later."}
+      end
     end
   end
 

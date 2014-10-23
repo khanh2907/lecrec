@@ -27,11 +27,13 @@
                   </thead>
                   <tbody>
                     <% semester.lecture_recordings.each do |lecture_recording| %>
+                      <% if lecture_recording.ready %>
                         <tr class="link-tr">
                           <td><%= link_to lecture_recording.name, unit_of_study_semester_lecture_recording_path(semester.unit_of_study, semester, lecture_recording) %></td>
                           <td><%= lecture_recording.discussions.length %></td>
                           <td><%=l lecture_recording.created_at, :format => :string %></td>
                         </tr>
+                      <% end %>
                     <% end %>
                   </tbody>
                 </table>

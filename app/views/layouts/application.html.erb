@@ -1,27 +1,31 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= content_for?(:title) ? yield(:title) : "LECREC" %></title>
-    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Lecrec" %>">
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-    <%= csrf_meta_tags %>
-  </head>
-  <body>
-    <header>
-      <%= render 'layouts/navigation' %>
-    </header>
-    <% if params[:controller].eql?("lecture_recordings") and params[:action].eql?("show") %>
-    <div class="content">
-       <%= render 'layouts/messages' %>
-       <%= yield %>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= content_for?(:title) ? yield(:title) : "LECREC" %></title>
+  <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Lecrec" %>">
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<header>
+  <%= render 'layouts/navigation' %>
+</header>
+<% if params[:controller].eql?("lecture_recordings") and params[:action].eql?("show") %>
+  <div class="content">
+    <div class="container">
+      <%= render 'layouts/messages' %>
     </div>
-    <% else %>
-    <main role="main">
-       <%= render 'layouts/messages' %>
-       <%= yield %>
-    </main>
-    <% end %>
-  </body>
+    <%= yield %>
+  </div>
+<% else %>
+  <main role="main">
+    <div class="container">
+      <%= render 'layouts/messages' %>
+    </div>
+    <%= yield %>
+  </main>
+<% end %>
+</body>
 </html>
