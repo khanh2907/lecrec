@@ -185,7 +185,7 @@ tr.hover {
   color: #FFF;
   text-align: center;
   width: 100%;
-  z-index: 2147483647;
+  z-index: 2;
 }
 
 .video-overlay {
@@ -197,6 +197,10 @@ tr.hover {
 
 #video {
   z-index: 1;
+}
+
+.collapse.navbar-collapse > ul > li > ul > li{
+  z-index: 2147483648;
 }
 
 .label-flat {
