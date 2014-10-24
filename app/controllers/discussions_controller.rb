@@ -75,8 +75,12 @@ class DiscussionsController < ApplicationController
         owner.notifications.create(content: "#{current_user.name} commented on your discussion #{@discussion.title}",
                                    path: unit_of_study_semester_lecture_recording_path(lecture_recording.semester.unit_of_study, lecture_recording.semester, lecture_recording))
       else
-        @discussion.comments.pluck(:user).each do |u|
-          if u != current_user or u != owner
+        @discussion.comments.pluck(:user_id).each do |uid|
+          u = User.find_by_id(uid)
+          p '***'
+          p u
+          p '***'
+          if u.present? and (u != current_user or u != owner)
             u.notifications.create(content: "#{current_user.name} has commented on #{@discussion.title}",
                                    path: unit_of_study_semester_lecture_recording_path(lecture_recording.semester.unit_of_study, lecture_recording.semester, lecture_recording))
           end

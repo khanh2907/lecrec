@@ -2,12 +2,25 @@
     <div class="jumbotron">
       <h1>LECREC</h1>
       <p>An inovative lecture recording platform for discussion and sharing ideas.</p>
-      <p><a class="btn btn-primary btn-lg" role="button">Learn more</a></p>
+      <p>
+        <a class="btn btn-primary btn-lg" role="button" href="<%= user_path(current_user) %>">My Profile</a>
+        <a class="btn btn-primary btn-lg" role="button" href="<%= lectures_path %>">Lectures</a>
+        <a class="btn btn-primary btn-lg" role="button" href="<%= communities_path %>">Community</a>
+      </p>
+      <p>
+        <% if current_user.is_admin?%>
+          <a class="btn btn-inverse btn-lg" role="button" href="<%= users_path %>">User Management</a>
+        <% end %>
+        <% if current_user.is_admin? or current_user.is_lecturer?%>
+          <a class="btn btn-inverse btn-lg" role="button" href="<%= unit_of_studies_path %>">UoS Management</a>
+        <% end %>
+
+      </p>
     </div>
   <div class="row">
     <div class="col-md-6">
       <div class="well">
-        <h2>Recent Lecture Recordings</h2>
+        <h2>Latest Lecture Recordings</h2>
         <hr>
         <% if @lecrecs.empty?%>
           There are no lecture recordings yet. Hassle your lecturers!
@@ -19,8 +32,8 @@
             </a>
             <hr>
           <% end %>
-        <% end %>
-        <a href="<%= lectures_path%>">See more...</a>
+          <a href="<%= lectures_path%>">See more...</a>
+      <% end %>
       </div>
     </div>
 
@@ -34,7 +47,7 @@
           <% Video.order(created_at: :desc).limit(5).each do |v| %>
             <a href="<%= community_video_path(v.community_id, v) %>">
               <h5><span class="label label-flat"><%= v.community.title%></span>  <%= v.title %></h5>
-              <h5><small> by <%= v.user.name %></small></h5>
+              <h5><small> by <%= v.user.name %> on <%=l v.created_at, :format => :comment %></small></h5>
 
               <p class="vid-desc"><small><%= v.description %></small></p>
             </a>

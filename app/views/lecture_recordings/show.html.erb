@@ -1,5 +1,5 @@
 <div>
-  <video id="video" controls="" width="100%" name="media">
+  <video id="video" controls="" height="500px" width="100%" name="media" style="background-color: black;">
     <source src="<%=@lecture_recording.raw_video%>" type="video/webm">
     <% if @lecture_recording.processed_path.nil? %>
       This video has not been processed yet. Please try again later.

@@ -22,7 +22,7 @@
     <strong class="discussion-name"><%=User.find_by_id(discussion.user_id).name%></strong>
     <h6 class="discussion-created-at" created-at-id="<%=discussion.id%>"></h6>
     <div class="discussion-content"><%=h nl2br(encodeHTML(discussion.content)).html_safe%></div>
-    <a class="show-comments" discussion-id="<%=discussion.id%>" href=""><i class="dis-icon glyphicon glyphicon-comment"></i> Comments</a>
+    <a class="show-comments" discussion-id="<%=discussion.id%>" href=""><i class="dis-icon glyphicon glyphicon-comment"></i> Comments <span class="badge"><%= discussion.comments.length%></span></a>
 
     <div class="comments" discussion-id="<%=discussion.id%>" style="display: none">
       <HR WIDTH="50%" SIZE="3">

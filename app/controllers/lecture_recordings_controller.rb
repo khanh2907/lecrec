@@ -54,8 +54,13 @@ class LectureRecordingsController < ApplicationController
         valid_formats = ['.webm', 'mp4']
         unless valid_formats.include? File.extname(@lecture_recording.raw_video.current_path)
           Resque.enqueue(VideoConverter, @lecture_recording.id)
+          format.html { redirect_to unit_of_study_semester_path(@uos, @semester), notice: 'Lecture recording was successfully created. This video requires encoding, this may take some time.' }
+        else
+          @lecture_recording.ready = true
+          @lecture_recording.save
+          format.html { redirect_to unit_of_study_semester_lecture_recording_path(@uos, @semester, @lecture_recording), notice: 'Lecture recording was successfully created.' }
         end
-        format.html { redirect_to unit_of_study_semester_lecture_recording_path(@uos, @semester, @lecture_recording), notice: 'Lecture recording was successfully created.' }
+
         format.json { render :show, status: :created, location: unit_of_study_semester_lecture_recording_path(@uos, @semester, @lecture_recording) }
       else
         format.html { render :new }

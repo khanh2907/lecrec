@@ -11,6 +11,7 @@
 <div class="video-meta">
   <h2><%= "#{@video.community.title} - #{@video.title}" %></h2>
   <h4 class="video-posted-by-on"><i>posted by <%=User.find_by_id(@video.user_id).name %> on <%=l @video.created_at, :format => :string %></i></h4>
+  <p><small><%= @video.description%></small></p>
   <br>
   <h3>
     Discussions
