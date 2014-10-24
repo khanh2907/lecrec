@@ -21,20 +21,15 @@
             <td><%= semester.year %></td>
             <td>
               <%= link_to unit_of_study_semester_path(@uos, semester)  do %>
-                  <i class="glyphicon glyphicon-search" title="View" id="<%="view-semester-#{semester.id}"%>"></i>
+                <btn class="btn btn-sml btn-default"><i class="glyphicon glyphicon-eye-open"></i> View</btn>
               <% end %>
-            </td>
-            <td>
               <%= link_to edit_unit_of_study_semester_path(@uos, semester)  do %>
-                  <i class="glyphicon glyphicon-pencil" title="Edit" id="<%="edit-semester-#{semester.id}"%>"></i>
+                <btn class="btn btn-sml btn-default"><i class="glyphicon glyphicon-eye-pencil"></i> Edit</btn>
               <% end %>
-            </td>
-            <td>
               <%= link_to unit_of_study_semester_path(@uos, semester), method: :delete, data: { confirm: 'Are you sure?' } do%>
-                  <i class="glyphicon glyphicon-trash" id="<%="delete-semester-#{semester.id}"%>"></i>
+                <btn class="btn btn-sml btn-danger"><i class="glyphicon glyphicon-eye-trash"></i> Delete</btn>
               <% end %>
             </td>
-
           </tr>
         <% end %>
       </tbody>

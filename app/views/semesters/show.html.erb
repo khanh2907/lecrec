@@ -42,12 +42,10 @@
                   <td><%=l lecture_recording.created_at, :format => :string %></td>
                   <td>
                     <%= link_to edit_unit_of_study_semester_lecture_recording_path(@uos, @semester, lecture_recording) do %>
-                      <i class="glyphicon glyphicon-pencil" title="Edit" id="<%="edit-lecrec-#{lecture_recording.id}"%>"></i>
+                      <btn class="btn btn-default btn-sml"><i class="glyphicon glyphicon-pencil"></i> Edit</btn>
                     <% end %>
-                  </td>
-                  <td>
                     <%= link_to unit_of_study_semester_lecture_recording_path(@uos, @semester, lecture_recording), method: :delete, data: { confirm: 'Are you sure?' } do%>
-                      <i class="glyphicon glyphicon-trash" id="<%="delete-lecrec-#{lecture_recording.id}"%>"></i>
+                      <btn class="btn btn-danger btn-sml"><i class="glyphicon glyphicon-trash"></i> Delete</btn>
                     <% end %>
                   </td>
                 </tr>

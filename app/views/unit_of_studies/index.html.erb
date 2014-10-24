@@ -19,8 +19,11 @@
               <td class="title"><%=link_to unit_of_study.title, unit_of_study_semesters_path(unit_of_study)%></td>
               <td class="alpha-code"><%= unit_of_study.alpha_code %></td>
               <td>
+                <%= link_to unit_of_study_semesters_path(unit_of_study) do %>
+                  <btn class="btn btn-sml btn-default"><i class="glyphicon glyphicon-eye-open"></i> View</btn>
+                <% end %>
                 <%= link_to edit_unit_of_study_path(unit_of_study.id) do %>
-                    <i class="glyphicon glyphicon-pencil" title="Edit" id="<%="edit-uos-#{unit_of_study.id}"%>"></i>
+                    <btn class="btn btn-sml btn-default"><i class="glyphicon glyphicon-pencil" title="Edit" id="<%="edit-uos-#{unit_of_study.id}"%>"></i> Edit</btn>
                 <% end %>
               </td>
             </tr>

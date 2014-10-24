@@ -12,8 +12,30 @@
         <% end %>
       </p>
 
+      <% if current_user.is_lecturer? or current_user.is_admin? %>
+        <h2>Units of Study <span class="label label-flat">Lecturer</span></h2>
+          <table class="table">
+            <thead>
+              <th>Alpha Code</th>
+              <th>Title</th>
+              <th></th>
+            </thead>
+            <tbody>
+            <% current_user.unit_of_studies.each do |uos|%>
+              <tr>
+                <td><%= uos.alpha_code %></td>
+                <td><%= uos.title %></td>
+                <td><a class="btn btn-default btn-sml" href="<%= unit_of_study_semesters_path(uos) %>"><i class="glyphicon glyphicon-eye-open"></i> View</a></td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+
+
+      <% end %>
+
       <hr>
-      <h2>Enrolled Units of Study</h2>
+      <h2>Units of Study <span class="label label-flat">Student</span></h2>
       <table class="table">
         <thead>
         <tr>

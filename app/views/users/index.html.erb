@@ -27,16 +27,15 @@
               </td>
               <td><%= user.last_sign_in_at %></td>
               <td>
-                <%= link_to edit_user_path(user.id) do %>
-                    <i class="glyphicon glyphicon-pencil" title="Edit" id="<%="edit-user-#{user.id}"%>"></i>
-                <% end %>
+                <a class="btn btn-default btn-sml" href="<%= edit_user_path(user.id) %>"><i class="glyphicon glyphicon-pencil"></i> Edit</a>
               </td>
               <td>
                 <% unless user.eql? current_user %>
                   <%= link_to admin_destroy_user_path(user), method: :delete, title: "Delete",
                               data: { confirm: "Are you sure you want to delete this user?" } do%>
-                      <i class="glyphicon glyphicon-trash" id="<%="delete-user-#{user.id}"%>"></i>
+                    <btn class="btn btn-danger btn-sml" href="<%= edit_user_path(user.id) %>"><i class="glyphicon glyphicon-trash"></i> Delete</btn>
                   <% end %>
+
                 <% end %>
               </td>
             </tr>
