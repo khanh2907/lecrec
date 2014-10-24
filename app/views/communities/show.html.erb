@@ -10,7 +10,6 @@
         <tr>
           <th>Topic</th>
           <th>Description</th>
-          <th>Views</th>
           <th>Discussions</th>
           <th>Posted by</th>
           <th></th>
@@ -21,7 +20,6 @@
         <% @community.videos.each do |video| %>
           <tr>
             <td><%= link_to video.title, community_video_path(@community, video) %></td>
-            <td><%= video.description %></td>
             <td><%= video.description %></td>
             <td><%= video.discussions.length %></td>
             <td><%= video.user.name %></td>
