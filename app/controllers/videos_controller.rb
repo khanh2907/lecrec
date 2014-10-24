@@ -57,9 +57,10 @@ class VideosController < ApplicationController
   # DELETE /videos/1
   # DELETE /videos/1.json
   def destroy
+    community = @video.community
     @video.destroy
     respond_to do |format|
-      format.html { redirect_to videos_url, notice: 'Video was successfully destroyed.' }
+      format.html { redirect_to community_path(community), notice: 'Video was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

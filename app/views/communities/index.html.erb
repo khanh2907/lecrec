@@ -11,6 +11,7 @@
           <th>Description</th>
           <th>Threads</th>
           <th>Latest Thread</th>
+          <th></th>
         </tr>
         </thead>
 
@@ -25,6 +26,14 @@
                 <%= community.videos.last.title%>
               <% else %>
                 -
+              <% end %>
+            </td>
+            <td>
+              <% if current_user.is_admin? %>
+                <a class="btn btn-sml btn-default" href="<%= edit_community_path(community) %>"> <i class="glyphicon glyphicon-pencil"></i> Edit</a>
+                <%= link_to community_path(community), method: :delete, data: { confirm: 'Are you sure?' } do%>
+                  <btn class="btn btn-danger btn-sml"><i class="glyphicon glyphicon-trash"></i> Delete</btn>
+                <% end %>
               <% end %>
             </td>
           </tr>
